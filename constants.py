@@ -12,3 +12,9 @@ TIME_STEP = 1.0 / 60.
 VEL_ITER, POS_ITER = 6, 2
 
 DEBUG = True
+
+def screen2World(pos):
+	return [p / PPM for p in pos]
+
+def world2Screen(pos):
+	return [p * PPM for p in pos]
