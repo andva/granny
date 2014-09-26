@@ -2,9 +2,7 @@ import constants
 import drawer
 
 class Character:
-	def __init__(self, screenPosition, world):
-		self.screenPosition = screenPosition
-
+	def __init__(self):
 
 	def getBody(self):
 		return self.physicsBody
@@ -15,3 +13,6 @@ class Character:
 
 	def drawCharacter(self, screen, screenPosition):
 		drawer.drawImage('images/snakehead2.png', screen, screenPosition)
+
+	def getScreenPosition(self):
+		return constants.world2Screen(self.physicsBody.position)
