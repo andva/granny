@@ -24,6 +24,7 @@ def handleInput():
 		move += (0, 1)
 	if keys_pressed[K_s]:
 		move += (0, -1)
+
 	move.Normalize()
 	return move * scale
 
@@ -81,6 +82,9 @@ def main():
 			if e.type == QUIT:
 				pygame.quit()
 				sys.exit()
+			if e.type == pygame.KEYDOWN:
+				if e.key == pygame.K_b:
+					constants.DEBUG = not constants.DEBUG
 
 		move = handleInput()
 
