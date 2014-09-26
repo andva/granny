@@ -1,5 +1,8 @@
 
 class Level:
+
+	id = 0
+
 	def __init__(self, player):
 		print "hej"
 		self.player = player

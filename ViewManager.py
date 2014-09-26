@@ -8,6 +8,6 @@ currentView = [0]
 def loadLevel(n):
 	currentView[0] = levels[n]
 
-def loadCutscene():
-	pass
+def loadCutscene(n):
+	currentView[0] = cutscenes[n]
 
