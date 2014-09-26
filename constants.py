@@ -7,3 +7,6 @@ DEBUG_COLORS = {
 	Box2D.b2.staticBody  : (255,100,0,255),
 	Box2D.b2.dynamicBody : (127,60,227,255),
 }
+
+TIME_STEP = 1.0 / 60.
+VEL_ITER, POS_ITER = 6, 2
