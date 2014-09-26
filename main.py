@@ -2,9 +2,12 @@ import pygame, sys
 from pygame.locals import *
 import Box2D
 
+from soundManager import SoundManager
+
 import debugRenderer
 
 def main():
+	pygame.mixer.pre_init(44100, -16, 1, 512)
 	pygame.init()
 
 	screen = pygame.display.set_mode((640, 480))
@@ -24,6 +27,8 @@ def main():
 	dynamic_body.CreateCircleFixture(radius=1.0, friction=0.0, density=0.3)
 	timeStep = 1.0 / 60.
 	velIter, posIter = 6, 2
+
+	sound = SoundManager()
 
 	while True:
 		screen.fill((0,0,0,0))
