@@ -7,6 +7,7 @@ import debugRenderer
 from level1 import Level1
 from soundManager import SoundManager
 from musicManager import MusicManager
+from character import Character
 
 def handleInput():
 	move = Box2D.b2Vec2(0,0)
@@ -62,6 +63,7 @@ def main():
 	sound = SoundManager()
 	music = MusicManager()
 
+
 	while True:
 		screen.fill((0,0,0,0))
 
@@ -72,6 +74,7 @@ def main():
 
 		move = handleInput()
 
+		level1.draw(screen)
 		level1.movePlayer(move)
 
 		render(w, screen)
