@@ -1,9 +1,12 @@
 import pygame, sys
 from pygame.locals import *
 import Box2D
+
 import constants
 import debugRenderer
 from level1 import Level1
+from soundManager import SoundManager
+from musicManager import MusicManager
 
 def handleInput():
 	move = Box2D.b2Vec2(0,0)
@@ -27,6 +30,8 @@ def resetForces(w):
 		body.__SetAngularVelocity(0)
 
 def initPygame():
+	pygame.mixer.pre_init(44100, -16, 1, 512)
+	pygame.init()
 	screen = pygame.display.set_mode((640, 480))
 	pygame.display.set_caption("Hello World")
 	return screen
@@ -49,12 +54,13 @@ def worldAfterUpdate(w):
 	resetForces(w)
 
 def main():
-	pygame.init()
-
 	screen = initPygame()
 	w = initWorld()
 
 	level1 = Level1(w)
+
+	sound = SoundManager()
+	music = MusicManager()
 
 	while True:
 		screen.fill((0,0,0,0))
