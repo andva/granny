@@ -4,6 +4,7 @@ import Box2D
 
 import constants
 import debugRenderer
+import pyganim
 from level1 import Level1
 from soundManager import SoundManager
 from musicManager import MusicManager
@@ -70,9 +71,11 @@ def main():
 	sound = SoundManager()
 	music = MusicManager()
 
-
 	while True:
 		screen.fill((100,100,100,0))
+
+
+
 
 		for e in pygame.event.get():
 			if e.type == QUIT:

@@ -1,14 +1,21 @@
 import character
 import constants
+
 import Box2D
-import pygame
+
+import pyganim
+import pygame, sys
+from pygame.locals import *
+import drawer
 
 class Victim(character.Character):
-	def __init__(self, screenPosition, image, world):
+	def __init__(self, screenPosition, image, anim, world):
 		self.screenPosition = screenPosition
 		self.physicsBody = world.CreateDynamicBody(position=constants.screen2World(screenPosition), angle=15)
 		self.physicsBody.CreateCircleFixture(radius=1.0, friction=0.0, density=0.3)
+		self.anim = anim
 		self.image = image
+
 		self.direction = (1, 0)
 		verts = [Box2D.b2Vec2(0,0), Box2D.b2Vec2(-5,5), Box2D.b2Vec2(5,5)]
 		count = 3
@@ -30,3 +37,10 @@ class Victim(character.Character):
 		else:
 			dir = (0,-1)
 		self.physicsBody.ApplyLinearImpulse(dir, self.physicsBody.position, True)
+
+	def draw(self):
+		print "hej"
+
+	def drawCharacter(self, screen, screenPosition):
+		self.anim.pause()
+		drawer.drawImage(self.image, self.anim, screen, screenPosition)
