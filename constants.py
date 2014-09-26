@@ -1,5 +1,5 @@
 import Box2D
-
+import math
 PPM=20.0
 SCREEN_WIDTH, SCREEN_HEIGHT=1280,720
 
@@ -29,3 +29,17 @@ def world2Screen(pos):
 	if (len(position) > 1):
 		position = [position[0], SCREEN_HEIGHT - position[1]]
 	return position
+
+def deg2rad(degreeAngle):
+	return degreeAngle * Box2D.b2_pi / 180.
+
+def rad2deg(radianAngle):
+	return radianAngle * 180. / Box2D.b2_pi
+
+def rotateVector(vec, angle):
+	theta = deg2rad(angle);
+
+	cs = math.cos(theta);
+	sn = math.sin(theta);
+	return [vec[0] * cs - vec[1] * sn,
+			vec[0] * sn + vec[1] * cs]
