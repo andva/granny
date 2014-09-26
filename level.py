@@ -17,6 +17,7 @@ class Level:
 		for v in self.victims:
 			v.drawCharacter(screen, v.getScreenPosition())
 
+
 	def movePlayer(self, deltaP):
 		self.player.move(deltaP)
 

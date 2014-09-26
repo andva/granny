@@ -8,6 +8,7 @@ from level1 import Level1
 from soundManager import SoundManager
 from musicManager import MusicManager
 from character import Character
+import listeners
 
 def handleInput():
 	move = Box2D.b2Vec2(0,0)
@@ -37,10 +38,16 @@ def initPygame():
 	pygame.display.set_caption("Hello World")
 	return screen
 
+
+
 def initWorld():
-	w = Box2D.b2World(gravity=(0,0), doSleep=True)
+	w = Box2D.b2World(gravity=(0,0),
+					contactListener=listeners.ContactListener(),
+					doSleep=True)
+
 	Box2D.b2.circleShape.draw = debugRenderer.my_draw_circle
 	Box2D.b2.polygonShape.draw = debugRenderer.my_draw_polygon
+
 	return w
 
 def render(w, screen):
@@ -51,13 +58,13 @@ def render(w, screen):
 
 def worldAfterUpdate(w):
 	w.Step(constants.TIME_STEP, constants.VEL_ITER, constants.POS_ITER)
+
 	w.ClearForces()
 	resetForces(w)
 
 def main():
 	screen = initPygame()
 	w = initWorld()
-
 	level1 = Level1(w)
 
 	sound = SoundManager()

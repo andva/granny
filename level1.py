@@ -6,7 +6,6 @@ import constants
 
 class Level1(Level):
 	def __init__(self, world):
-		self.player = Player((100,100), 'images/granny.png', world)
 		midx = constants.SCREEN_WIDTH / 2.0
 		midy = constants.SCREEN_HEIGHT / 2.0
 
