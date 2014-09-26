@@ -14,6 +14,9 @@ class Level:
 		screenPosition = self.player.getScreenPosition()
 		self.player.drawCharacter(screen, screenPosition)
 
+		for v in self.victims:
+			v.drawCharacter(screen, v.getScreenPosition())
+
 	def movePlayer(self, deltaP):
 		self.player.move(deltaP)
 

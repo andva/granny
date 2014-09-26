@@ -1,6 +1,7 @@
 from level import Level
 from player import Player
 from wall import Wall
+from victim import Victim
 import constants
 
 class Level1(Level):
@@ -16,5 +17,7 @@ class Level1(Level):
 			Wall((midx - 200, midy), (10,100), world),
 			Wall((midx + 200, midy), (10,100), world),
 			]
-
+		self.victims = [
+			Victim((midx + 100, midy), 'images/granny.png', world)
+		]
 		Level(self.player)
