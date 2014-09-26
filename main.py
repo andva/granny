@@ -65,7 +65,7 @@ def main():
 
 
 	while True:
-		screen.fill((0,0,0,0))
+		screen.fill((100,100,100,0))
 
 		for e in pygame.event.get():
 			if e.type == QUIT:
