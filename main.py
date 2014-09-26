@@ -3,6 +3,7 @@ from pygame.locals import *
 import Box2D
 
 from soundManager import SoundManager
+from musicManager import MusicManager
 
 import debugRenderer
 
@@ -29,6 +30,7 @@ def main():
 	velIter, posIter = 6, 2
 
 	sound = SoundManager()
+	music = MusicManager()
 
 	while True:
 		screen.fill((0,0,0,0))
