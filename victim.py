@@ -9,6 +9,9 @@ from pygame.locals import *
 import drawer
 
 class Victim(character.Character):
+
+	moving = False
+
 	def __init__(self, screenPosition, image, anim, world):
 		self.screenPosition = screenPosition
 		self.physicsBody = world.CreateDynamicBody(position=constants.screen2World(screenPosition), angle=15)
@@ -34,13 +37,19 @@ class Victim(character.Character):
 		print d
 		if (d == 1):
 			dir = (0,1)
+			self.moving = False
 		else:
 			dir = (0,-1)
+			self.moving = True
 		self.physicsBody.ApplyLinearImpulse(dir, self.physicsBody.position, True)
 
 	def draw(self):
 		print "hej"
 
 	def drawCharacter(self, screen, screenPosition):
-		self.anim.pause()
+		if(self.moving == True):
+			self.anim.play()
+		else:
+			self.anim.pause()
+			self.anim.currentFrameNum = 0
 		drawer.drawImage(self.image, self.anim, screen, screenPosition)
