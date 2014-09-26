@@ -24,3 +24,4 @@ class Level:
 	def update(self):
 		for v in self.victims:
 			v.walk()
+			v.seesPlayer(self.player)

@@ -84,10 +84,11 @@ def main():
 
 		move = handleInput()
 
-		level1.draw(screen)
+
 		level1.movePlayer(move)
 		level1.update()
 		render(w, screen)
+		level1.draw(screen)
 
 		worldAfterUpdate(w)
 
