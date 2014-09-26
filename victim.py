@@ -59,7 +59,7 @@ class Victim(character.Character):
 		else:
 			self.anim.pause()
 			self.anim.currentFrameNum = 0
-		drawer.drawImage(self.image, self.anim, screen, screenPosition)
+		drawer.drawAnim(self.image, self.anim, screen, screenPosition)
 		#draw fov
 
 		pygame.draw.polygon(screen, (80,80,100,255), self.calcFovPolygon())

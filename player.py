@@ -23,4 +23,4 @@ class Player(character.Character):
 		else:
 			self.anim.pause()
 			self.anim.currentFrameNum = 0
-		drawer.drawImage(self.image, self.anim, screen, screenPosition)
+		drawer.drawAnim(self.image, self.anim, screen, screenPosition)

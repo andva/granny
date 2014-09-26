@@ -6,10 +6,12 @@ import constants
 import debugRenderer
 import pyganim
 from level1 import Level1
+from cutscene import Cutscene
 from soundManager import SoundManager
 from musicManager import MusicManager
 from character import Character
 import listeners
+import viewManager
 
 def handleInput():
 	move = Box2D.b2Vec2(0,0)
@@ -67,10 +69,16 @@ def worldAfterUpdate(w):
 def main():
 	screen = initPygame()
 	w = initWorld()
-	level1 = Level1(w)
+	level1 = Level1(w,0)
+	cutscene1 = Cutscene('images/cutscene.png',0)
 
 	sound = SoundManager()
 	music = MusicManager()
+
+	viewManager.levels.insert(0, level1)
+	viewManager.cutscenes.insert(0, cutscene1)
+
+	viewManager.loadCutscene(0)
 
 	while True:
 		screen.fill((100,100,100,0))
@@ -88,11 +96,10 @@ def main():
 
 		move = handleInput()
 
-
-		level1.movePlayer(move)
-		level1.update()
+		viewManager.currentView[0].draw(screen)
+		viewManager.currentView[0].movePlayer(move)
+		viewManager.currentView[0].update()
 		render(w, screen)
-		level1.draw(screen)
 
 		worldAfterUpdate(w)
 

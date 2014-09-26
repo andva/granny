@@ -11,7 +11,7 @@ DEBUG_COLORS = {
 TIME_STEP = 1.0 / 60.
 VEL_ITER, POS_ITER = 6, 2
 
-DEBUG = True
+DEBUG = False
 
 def screen2WorldNoFlip(pos):
 	return [p / PPM for p in pos]
