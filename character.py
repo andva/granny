@@ -1,8 +1,11 @@
 import drawer
 
 class Character:
+
+	image = 0
+
 	def __init__(self):
-		print "hej"
+		pass
 
 	def getBody(self):
 		return self.physicsBody
@@ -12,4 +15,4 @@ class Character:
 		#self.physicsBody.fixture.shape.draw(self.physicsBody, self.physicsBody.fixture, screen)
 
 	def drawCharacter(self, screen, screenPosition):
-		drawer.drawImage('images/snakehead2.png', screen, screenPosition)
+		drawer.drawImage(self.image, screen, screenPosition)
