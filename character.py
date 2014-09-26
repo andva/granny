@@ -11,5 +11,5 @@ class Character:
 		print "hej"
 		#self.physicsBody.fixture.shape.draw(self.physicsBody, self.physicsBody.fixture, screen)
 
-	def drawCharacter(self, screen):
-		drawer.drawImage('images/snakehead2.png', screen)
+	def drawCharacter(self, screen, screenPosition):
+		drawer.drawImage('images/snakehead2.png', screen, screenPosition)

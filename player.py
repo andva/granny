@@ -9,3 +9,6 @@ class Player(character.Character):
 
 	def move(self, deltaP):
 		self.physicsBody.ApplyLinearImpulse(deltaP, self.physicsBody.position, True)
+
+	def getScreenPosition(self):
+		return constants.world2Screen(self.physicsBody.position)

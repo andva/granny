@@ -11,7 +11,8 @@ class Level:
 		self.player.debugDraw(screen)
 
 	def draw(self, screen):
-		self.player.drawCharacter(screen)
+		screenPosition = self.player.getScreenPosition()
+		self.player.drawCharacter(screen, screenPosition)
 
 	def movePlayer(self, deltaP):
 		self.player.move(deltaP)
