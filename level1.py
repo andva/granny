@@ -8,8 +8,8 @@ class Level1(Level):
 		self.player = Player((100,100), world)
 		self.walls = [
 			#screenPos, Size
-			Wall((100, 40), (100,10), world),
-			#Wall((3,0), (1,20), world)
+			Wall((400, 200), (100,10), world),
+			Wall((400, 200), (100,10), world),
 			]
 
 		Level(self.player)
