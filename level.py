@@ -21,3 +21,6 @@ class Level:
 	def movePlayer(self, deltaP):
 		self.player.move(deltaP)
 
+	def update(self):
+		for v in self.victims:
+			v.walk()

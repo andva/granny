@@ -83,7 +83,7 @@ def main():
 
 		level1.draw(screen)
 		level1.movePlayer(move)
-
+		level1.update()
 		render(w, screen)
 
 		worldAfterUpdate(w)

@@ -1,6 +1,7 @@
 import character
 import constants
 import Box2D
+import pygame
 
 class Victim(character.Character):
 	def __init__(self, screenPosition, image, world):
@@ -20,3 +21,12 @@ class Victim(character.Character):
 			)
 	def draw(self):
 		print "hej"
+
+	def walk(self):
+		d = (int(pygame.time.get_ticks()%5000)/2500)
+		print d
+		if (d == 1):
+			dir = (0,1)
+		else:
+			dir = (0,-1)
+		self.physicsBody.ApplyLinearImpulse(dir, self.physicsBody.position, True)
