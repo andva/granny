@@ -8,6 +8,3 @@ class Player(character.Character):
 
 	def move(self, deltaP):
 		self.physicsBody.ApplyLinearImpulse(deltaP, self.physicsBody.position, True)
-
-	def draw(self, screen):
-		print "hej"
