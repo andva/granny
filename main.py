@@ -10,6 +10,7 @@ from soundManager import SoundManager
 from musicManager import MusicManager
 from character import Character
 import listeners
+import ViewManager
 
 def handleInput():
 	move = Box2D.b2Vec2(0,0)
@@ -71,6 +72,11 @@ def main():
 	sound = SoundManager()
 	music = MusicManager()
 
+	ViewManager.levels.insert(0, level1)
+	#ViewManager.cutscenes[0] = 0
+
+	ViewManager.loadLevel(0)
+
 	while True:
 		screen.fill((100,100,100,0))
 
@@ -84,9 +90,9 @@ def main():
 
 		move = handleInput()
 
-		level1.draw(screen)
-		level1.movePlayer(move)
-		level1.update()
+		ViewManager.currentView[0].draw(screen)
+		ViewManager.currentView[0].movePlayer(move)
+		ViewManager.currentView[0].update()
 		render(w, screen)
 
 		worldAfterUpdate(w)

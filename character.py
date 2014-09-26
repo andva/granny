@@ -4,7 +4,7 @@ import pyganim
 
 class Character:
 
-	anim = pyganim.PygAnimation([('images/granny.png', 0.2), ('images/granny.png', 0.2)])
+	anim = []
 	image = 0
 
 	def __init__(self):
