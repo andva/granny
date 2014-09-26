@@ -12,8 +12,8 @@ class Level1(Level):
 		self.walls = [
 			#screenPos, Size
 			#Wall((midx, midy - 200), (200,10), world),
-			Wall((midx - 200, midy), (10,200), world),
-			Wall((midx + 200, midy), (10,200), world),
+			Wall((midx - 200, midy), (10,100), world),
+			Wall((midx + 200, midy), (10,100), world),
 			]
 
 		Level(self.player)
