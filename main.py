@@ -33,7 +33,7 @@ def resetForces(w):
 def initPygame():
 	pygame.mixer.pre_init(44100, -16, 1, 512)
 	pygame.init()
-	screen = pygame.display.set_mode((640, 480))
+	screen = pygame.display.set_mode((constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
 	pygame.display.set_caption("Hello World")
 	return screen
 
