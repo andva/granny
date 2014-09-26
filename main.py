@@ -1,11 +1,9 @@
 import pygame, sys
 from pygame.locals import *
 import Box2D
-
 import constants
 import debugRenderer
-import player
-from player import Player
+from level1 import Level1
 
 def handleInput():
 	move = Box2D.b2Vec2(0,0)
@@ -23,28 +21,40 @@ def handleInput():
 	move.Normalize()
 	return move * scale
 
-def resetForces(player):
-	body = player.getBody()
-	body.__SetLinearVelocity((0,0))
-	body.__SetAngularVelocity(0)
+def resetForces(w):
+	for body in w.bodies:
+		body.__SetLinearVelocity((0,0))
+		body.__SetAngularVelocity(0)
 
 def initPygame():
 	screen = pygame.display.set_mode((640, 480))
 	pygame.display.set_caption("Hello World")
 	return screen
 
+def initWorld():
+	w = Box2D.b2World(gravity=(0,0), doSleep=True)
+	Box2D.b2.circleShape.draw = debugRenderer.my_draw_circle
+	Box2D.b2.polygonShape.draw = debugRenderer.my_draw_polygon
+	return w
+
+def render(w, screen):
+	if (constants.DEBUG):
+		for body in w.bodies:
+			for fixture in body.fixtures:
+				fixture.shape.draw(body, fixture, screen)
+
+def worldAfterUpdate(w):
+	w.Step(constants.TIME_STEP, constants.VEL_ITER, constants.POS_ITER)
+	w.ClearForces()
+	resetForces(w)
+
 def main():
 	pygame.init()
 
 	screen = initPygame()
-	w = Box2D.b2World(gravity=(0,0), doSleep=True)
-	Box2D.b2.circleShape.draw = debugRenderer.my_draw_circle
-	Box2D.b2.polygonShape.draw = debugRenderer.my_draw_polygon
-	player = Player((10,15), w)
-	groundBody = w.CreateStaticBody(
-		position=(0,-3),
-		shapes = Box2D.b2.polygonShape(box=(50,5)),
-		)
+	w = initWorld()
+
+	level1 = Level1(w)
 
 	while True:
 		screen.fill((0,0,0,0))
@@ -56,16 +66,12 @@ def main():
 
 		move = handleInput()
 
-		player.move(move)
+		level1.movePlayer(move)
 
-		for body in w.bodies:
-			for fixture in body.fixtures:
-				fixture.shape.draw(body, fixture, screen)
+		render(w, screen)
 
-		w.Step(constants.TIME_STEP, constants.VEL_ITER, constants.POS_ITER)
+		worldAfterUpdate(w)
 
-		w.ClearForces()
-		resetForces(player)
 		pygame.display.update()
 
 	pygame.quit()

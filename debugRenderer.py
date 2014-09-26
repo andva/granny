@@ -1,7 +1,6 @@
-import pygame, sys
-from pygame.locals import *
-import Box2D
+import pygame
 from constants import *
+
 def my_draw_polygon(polygon, body, fixture, screen):
     vertices = [(body.transform * v) * PPM for v in polygon.vertices]
     vertices = [(v[0], SCREEN_HEIGHT - v[1]) for v in vertices]
