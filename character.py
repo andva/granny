@@ -1,6 +1,9 @@
+import constants
+
 class Character:
-	def __init__(self):
-		print "hej"
+	def __init__(self, screenPosition, world):
+		self.screenPosition = screenPosition
+
 
 	def getBody(self):
 		return self.physicsBody

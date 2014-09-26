@@ -3,7 +3,7 @@ import constants
 
 class Player(character.Character):
 	def __init__(self, screenPosition, world):
-		self.screenPosition = screenPosition
+		character.Character(screenPosition, world)
 		self.physicsBody = world.CreateDynamicBody(position=constants.screen2World(screenPosition), angle=15)
 		self.physicsBody.CreateCircleFixture(radius=1.0, friction=0.0, density=0.3)
 

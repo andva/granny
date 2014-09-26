@@ -14,7 +14,12 @@ VEL_ITER, POS_ITER = 6, 2
 DEBUG = True
 
 def screen2World(pos):
-	return [p / PPM for p in pos]
+	if (len(pos) > 1):
+		position = [pos[0], SCREEN_HEIGHT - pos[1]]
+	return [p / PPM for p in position]
 
 def world2Screen(pos):
-	return [p * PPM for p in pos]
+	position = [p * PPM for p in pos]
+	if (len(position) > 1):
+		position = [position[0], SCREEN_HEIGHT - position[1]]
+	return position
