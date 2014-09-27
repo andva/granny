@@ -15,8 +15,8 @@ class Level1(Level):
 		self.image = image
 		self.img = pygame.image.load(image).convert()
 
-		playerAnim = pyganim.PygAnimation([('images/granny.png', 0.1), ('images/granny2.png', 0.1), ('images/granny.png', 0.1), ('images/granny3.png', 0.1)])
-		self.player = Player((midx,midy - 20), 'images/granny.png', playerAnim, world)
+		playerAnim = pyganim.PygAnimation([('images/granny.png', 0.1), ('images/granny2.png', 0.1), ('images/granny3.png', 0.1), ('images/granny2.png', 0.1), ('images/grannyr.png', 0.1), ('images/granny2r.png', 0.1), ('images/granny3r.png', 0.1), ('images/granny2r.png', 0.1)])
+		self.player = Player((midx - 430 ,midy + 200), 'images/granny.png', playerAnim, world)
 		self.walls = [
 			#screenPos, Size
 			# MAIN WALLS #############################################
@@ -37,7 +37,7 @@ class Level1(Level):
 			Wall((midx + 50, midy - 8), (470,3), world), # BOTTOM WALL
 
 			]
-		victimAnim = pyganim.PygAnimation([('images/granny.png', 0.1), ('images/granny2.png', 0.1), ('images/granny.png', 0.1), ('images/granny3.png', 0.1)])
+		victimAnim = pyganim.PygAnimation([('images/granny.png', 0.1), ('images/granny2.png', 0.1), ('images/granny3.png', 0.1), ('images/granny2.png', 0.1), ('images/grannyr.png', 0.1), ('images/granny2r.png', 0.1), ('images/granny3r.png', 0.1), ('images/granny2r.png', 0.1)])
 		self.victims = [
 			Victim((midx + 100, midy - 30), 'images/granny.png', victimAnim, world)
 		]
