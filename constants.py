@@ -16,6 +16,9 @@ PLAYER_SPEED_REGULAR = 20
 VICTIM_SPEED_REGULAR = 10
 DEBUG = True
 
+PATH_MAP_SCALE = 1./10.
+PATH_MAP_INV_SCALE = 10.
+
 def screen2WorldNoFlip(pos):
 	return [p / PPM for p in pos]
 
@@ -32,6 +35,9 @@ def world2Screen(pos):
 	if (len(position) > 1):
 		position = [position[0], SCREEN_HEIGHT - position[1]]
 	return position
+
+def pathToScreen(pos):
+	return [p * PATH_MAP_INV_SCALE for p in pos]
 
 def deg2rad(degreeAngle):
 	return degreeAngle * Box2D.b2_pi / 180.

@@ -17,8 +17,7 @@ class Character(object):
 		return 0
 
 	def debugDraw(self, screen):
-		print "hej"
-		#self.physicsBody.fixture.shape.draw(self.physicsBody, self.physicsBody.fixture, screen)
+		pass
 
 	def getScreenPosition(self):
 		if (self.initialized):

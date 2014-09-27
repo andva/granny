@@ -4,6 +4,8 @@ import math
 import Box2D
 import pygame
 import drawer
+from astar import AStarGrid, AStarGridNode
+from itertools import product
 
 class Victim(character.Character):
 
@@ -17,6 +19,47 @@ class Victim(character.Character):
 		self.image = image
 		self.fovAngle = 60
 		self.direction = (1, 0)
+		graph, nodes = self.createCollisionMap()
+		paths = AStarGrid(graph)
+		self.setWaypoint((screenPosition[0], screenPosition[1] + 100), nodes, paths)
+		start, end = nodes[28][18], nodes[96][21]
+		path = paths.search(start, end)
+		if path is None:
+			print "No path"
+		else:
+			print "Found path", constants.pathToScreen([path[0].x, path[0].y])
+
+	def createCollisionMap(self):
+		collisionMap = pygame.image.load("images/collisionMap.png").convert()
+		rect = collisionMap.get_rect()
+		width = rect[2]
+		height = rect[3]
+		nodes = [[AStarGridNode(x, y) for y in range(height)] for x in range(width)]
+		graph = {}
+		for x, y in product(range(rect[2]),range(rect[3])):
+			node = nodes[x][y]
+			graph[node] = []
+			for i, j in product([-1, 0, 1], [-1, 0, 1]):
+				if not (0 <= x + i < width): continue
+				if not (0 <= y + j < height): continue
+				pixelVal = collisionMap.get_at((x + i, y + j))[0]
+				if pixelVal < 100: continue
+				graph[nodes[x][y]].append(nodes[x+i][y+j])
+		return graph, nodes
+
+	def convertToPathCoord(self, x, y):
+		return [int(x * constants.PATH_MAP_SCALE), int(y * constants.PATH_MAP_SCALE)]
+
+	def setWaypoint(self, goal, nodes, paths):
+		start = self.convertToPathCoord(self.startPositionScreen[0], self.startPositionScreen[1])
+		goalI = self.convertToPathCoord(self.startPositionScreen[0] + 100, self.startPositionScreen[1])
+		s, e = nodes[start[0]][start[1]], nodes[goalI[0]][goalI[1]]
+		path = paths.search(s, e)
+		if path is None:
+			print "No path"
+		else:
+			print "Found path", constants.pathToScreen([path[0].x, path[0].y])
+		print self.startPositionScreen[0], self.startPositionScreen[1], start, goalI
 
 	def addPhysics(self, world):
 		self.physicsBody = world.CreateDynamicBody(position=constants.screen2World(self.startPositionScreen), angle=15)
@@ -24,7 +67,7 @@ class Victim(character.Character):
 		self.initialized = True
 
 	def draw(self):
-		print "hej"
+		pass
 
 	def walk(self):
 		if not self.initialized: return;
@@ -41,9 +84,6 @@ class Victim(character.Character):
 		self.screenPosition = constants.world2Screen(self.physicsBody.position)
 
 		self.physicsBody.ApplyLinearImpulse(movement, self.physicsBody.position, True)
-
-	def draw(self):
-		print "hej"
 
 	def calcFovPolygon(self):
 		sp = self.getScreenPosition()
@@ -65,7 +105,7 @@ class Victim(character.Character):
 			drawer.drawAnim(self.image, self.anim, screen, screenPosition)
 			#draw fov
 
-			pygame.draw.polygon(screen, (80,80,100,255), self.calcFovPolygon())
+			pygame.draw.polygon(screen, (80,80,100,10), self.calcFovPolygon())
 
 	def seesPlayer(self, player):
 		if not self.initialized: return
@@ -76,4 +116,4 @@ class Victim(character.Character):
 		if (rawDot > 0):
 			dot = constants.rad2deg(math.acos(rawDot))
 			if (dot < self.fovAngle / 2.):
-				print "I SEE YOU", dot
+				pass
