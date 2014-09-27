@@ -77,15 +77,13 @@ def main():
 
 	viewManager.levels.insert(0, level1)
 	viewManager.cutscenes.insert(0, cutscene1)
-
+	clock = pygame.time.Clock()
 	viewManager.loadCutscene(0)
-
+	playtime = 0
 	while True:
 		screen.fill((100,100,100,0))
-
-
-
-
+		milliseconds = clock.tick(30)
+		playtime += milliseconds / 1000.0
 		for e in pygame.event.get():
 			if e.type == QUIT:
 				pygame.quit()
@@ -102,7 +100,8 @@ def main():
 		render(w, screen)
 
 		worldAfterUpdate(w)
-
+		text = "FPS: {0:.2f}   Playtime: {1:.2f}".format(clock.get_fps(), playtime)
+		pygame.display.set_caption(text)
 		pygame.display.update()
 
 	pygame.quit()
