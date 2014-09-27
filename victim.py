@@ -72,6 +72,14 @@ class Victim(character.Character):
 	def draw(self):
 		pass
 
+	def debugDraw(self, screen):
+		if (self.path != None):
+			if (len(self.path) > 1):
+				for i in range(0, len(self.path) - 1):
+					start = self.convertPathToScreenCoord(self.path[i].x, self.path[i].y)
+					end = self.convertPathToScreenCoord(self.path[i + 1].x, self.path[i + 1].y)
+					pygame.draw.line(screen, (255, 0, 0, 0), start, end, 10)
+
 	def walk(self):
 		self.screenPosition = constants.world2Screen(self.physicsBody.position)
 		if (len(self.path) > 0):
@@ -85,10 +93,10 @@ class Victim(character.Character):
 					self.taskList.startDoingTask()
 
 			self.direction = Box2D.b2Vec2([
-				(targetPos[0] - self.screenPosition[0]),
-				-(targetPos[1] - self.screenPosition[1])])
+				-(targetPos[0] - self.screenPosition[0]),
+				(targetPos[1] - self.screenPosition[1])])
 			self.direction.Normalize()
-			movement = [self.direction[0] * constants.VICTIM_SPEED_REGULAR * 0.8, self.direction[1] * constants.VICTIM_SPEED_REGULAR * 0.8]
+			movement = [-self.direction[0] * constants.VICTIM_SPEED_REGULAR * 0.8, -self.direction[1] * constants.VICTIM_SPEED_REGULAR * 0.8]
 			self.physicsBody.ApplyLinearImpulse(movement, self.physicsBody.position, True)
 
 		elif self.taskList.done:
@@ -106,8 +114,8 @@ class Victim(character.Character):
 	def calcFovPolygon(self):
 		sp = self.getScreenPosition()
 
-		rv1 = constants.rotateVector([-self.direction[0], self.direction[1]], self.fovAngle / 2.)
-		rv2 = constants.rotateVector([-self.direction[0], self.direction[1]], -self.fovAngle / 2.)
+		rv1 = constants.rotateVector([self.direction[0], -self.direction[1]], self.fovAngle / 2.)
+		rv2 = constants.rotateVector([self.direction[0], -self.direction[1]], -self.fovAngle / 2.)
 		return [
 			sp,
 			(sp[0] - rv1[0] * 500., sp[1] - rv1[1] * 500.),
@@ -128,13 +136,6 @@ class Victim(character.Character):
 				color =(255,80,100,10)
 
 			pygame.draw.polygon(screen, color, self.calcFovPolygon())
-
-			if (self.path != None):
-				if (len(self.path) > 1):
-					for i in range(0, len(self.path) - 1):
-						start = self.convertPathToScreenCoord(self.path[i].x, self.path[i].y)
-						end = self.convertPathToScreenCoord(self.path[i + 1].x, self.path[i + 1].y)
-						pygame.draw.line(screen, (255, 0, 0, 0), start, end, 10)
 
 	def testIfSeesPlayer(self, player, world):
 		if not self.initialized: return

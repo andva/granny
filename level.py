@@ -18,7 +18,8 @@ class Level:
 
 	def debugDraw(self, screen):
 		self.player.debugDraw(screen)
-
+		for r in self.rooms:
+			r.debugDraw(screen)
 
 	def draw(self, screen):
 		drawer.drawImage(self.img, screen, (0,0))
@@ -27,8 +28,6 @@ class Level:
 
 		for v in self.victims:
 			v.drawCharacter(screen, v.getScreenPosition())
-		for r in self.rooms:
-			r.debugDraw(screen)
 
 
 	def movePlayer(self, deltaP):

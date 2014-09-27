@@ -22,6 +22,9 @@ class Cutscene:
 			self.i -= 2
 		drawer.drawImage(self.img, screen, (0,self.i))
 
+	def debugDraw(self, screen):
+		pass
+
 	def movePlayer(self, deltaP):
 		pass
 
