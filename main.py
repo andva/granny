@@ -64,7 +64,12 @@ def handleInput(highScore):
 			if e.type == QUIT:
 				pygame.quit()
 				sys.exit()
+
 			if e.type == pygame.KEYDOWN:
+				if e.key == K_ESCAPE:
+					pygame.quit()
+					sys.exit()
+
 				if e.key == pygame.K_b:
 					constants.DEBUG = not constants.DEBUG
 
@@ -119,6 +124,8 @@ def worldAfterUpdate(w):
 			for v in w.bodies:
 				w.DestroyBody(v)
 			viewManager.loadLevel(1, w)
+			viewManager.currentView[0].deadBodies = []
+
 def main():
 	screen = initPygame()
 	w = initWorld()
