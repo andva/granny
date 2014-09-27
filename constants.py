@@ -21,6 +21,8 @@ PATH_MAP_INV_SCALE = 10.
 
 highScore = 0
 myfont = 0
+winFont = 0
+scoreFont = 0
 
 WON = False
 LOST = False

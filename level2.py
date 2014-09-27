@@ -32,7 +32,7 @@ class Level2(Level):
 			Wall((midx + 640, midy - 310), (1280,3), world),
 			Wall((midx + 440, midy + 175), (400,40), world),
 			Wall((midx - 450, midy + 175), (400,40), world),
-			Wall((midx - 465, midy - 130), (400,30), world),
+			Wall((midx - 465, midy - 130), (380,30), world),
 			Wall((midx + 270, midy - 130), (225,30), world),
 			Wall((midx - 450, midy + 67), (15,100), world),
 			Wall((midx - 470, midy + 10), (30,40), world),
@@ -67,11 +67,11 @@ class Level2(Level):
 				world,
 				TaskList([
 					#screenpos, time(ms), name
-					Task((284, 138), 3000, "a"),
-					Task((623, 391), 3000, "b"),
-					Task((1151, 417), 3000, "c"),
-					Task((290, 403), 3000, "c"),
-					Task((1167, 129), 3000, "c"),
+					Task((284, 138), 2000, "a"),
+					Task((623, 391), 2000, "b"),
+					Task((1151, 417), 2000, "c"),
+					Task((290, 403), 2000, "c"),
+					Task((1167, 129), 2000, "c"),
 					]
 				),
 				'images/collisionMap2.png'
@@ -83,11 +83,11 @@ class Level2(Level):
 				world,
 				TaskList([
 					#screenpos, time(ms), name
-					Task((284, 138), 3000, "a"),
-					Task((623, 391), 3000, "b"),
-					Task((1151, 417), 3000, "c"),
-					Task((290, 403), 3000, "c"),
-					Task((1167, 129), 3000, "c"),
+					Task((284, 138), 2000, "a"),
+					Task((623, 391), 2000, "b"),
+					Task((1151, 417), 2000, "c"),
+					Task((290, 403), 2000, "c"),
+					Task((1167, 129), 2000, "c"),
 					]
 				),
 				'images/collisionMap2.png'
@@ -99,11 +99,11 @@ class Level2(Level):
 				world,
 				TaskList([
 					#screenpos, time(ms), name
-					Task((284, 138), 3000, "a"),
-					Task((623, 391), 3000, "b"),
-					Task((290, 403), 3000, "c"),
-					Task((1167, 129), 3000, "c"),
-					Task((1151, 417), 3000, "c"),
+					Task((284, 138), 2000, "a"),
+					Task((623, 391), 2000, "b"),
+					Task((290, 403), 2000, "c"),
+					Task((1167, 129), 2000, "c"),
+					Task((1151, 417), 2000, "c"),
 					]
 				),
 				'images/collisionMap2.png'

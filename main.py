@@ -87,7 +87,8 @@ def initPygame():
 	screen = pygame.display.set_mode((constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT), pygame.FULLSCREEN)
 	pygame.display.set_caption("")
 	constants.myfont = pygame.font.SysFont("trebuchet ms", 30)
-
+	constants.winFont = pygame.font.SysFont("trebuchet ms", 60)
+	constants.scoreFont = pygame.font.SysFont("trebuchet ms", 70)
 	return screen
 
 def initWorld():
@@ -107,7 +108,7 @@ def render(w, screen):
 				fixture.shape.draw(body, fixture, screen)
 		viewManager.currentView[0].debugDraw(screen)
 
-def worldAfterUpdate(w):
+def worldAfterUpdate(w, screen, highscoore):
 	w.Step(constants.TIME_STEP, constants.VEL_ITER, constants.POS_ITER)
 	w.ClearForces()
 	resetForces(w)
@@ -128,8 +129,17 @@ def worldAfterUpdate(w):
 			if (viewManager.currentLevel[0] == 0):
 				viewManager.loadLevel(1, w)
 				viewManager.currentView[0].deadBodies = []
-			if (viewManager.currentLevel[0] == 1):
+			elif (viewManager.currentLevel[0] == 1):
 				viewManager.loadLevel(1, w)
+
+				label = constants.winFont.render("CONGRATULATIONS!", 1, (0,0,0))
+				screen.blit(label, (constants.SCREEN_WIDTH / 2. - 270, constants.SCREEN_HEIGHT / 2. - 100))
+				label = constants.myfont.render("You have showed those whippersnappers by SCORING", 1, (0,0,255))
+				screen.blit(label, (constants.SCREEN_WIDTH / 2. - 370, constants.SCREEN_HEIGHT / 2.))
+
+				label = constants.scoreFont.render(str(highscoore.totalScore) + "    POINTS!!!!", 1, (255,0,0))
+				screen.blit(label, (constants.SCREEN_WIDTH / 2. - 200, constants.SCREEN_HEIGHT / 2. + 50))
+
 
 def main():
 	screen = initPygame()
@@ -164,14 +174,10 @@ def main():
 
 		viewManager.currentView[0].movePlayer(move)
 		viewManager.currentView[0].update(w)
-		if viewManager.currentView[0].type == 'level':
-			if len(viewManager.currentView[0].victims) == 0:
-				pass
-
 
 		render(w, screen)
 		highscoore.update()
-		worldAfterUpdate(w)
+		worldAfterUpdate(w, screen, highscoore)
 		text = "FPS: {0:.2f}   Playtime: {1:.2f} ".format(clock.get_fps(), playtime) + "Score: " + str(highscoore.totalScore)
 		pygame.display.set_caption(text)
 		pygame.display.update()
