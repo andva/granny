@@ -31,26 +31,20 @@ class Player(character.Character):
 				self.left = True
 			if keys_pressed[K_d]:
 				self.left = False
-				print("False")
 
 			if self.left == True:
-				print("True")
 				if self.anim.currentFrameNum > 3:
-					print("is")
 					self.anim.currentFrameNum = 0
-					print("good")
 
 			if self.left == False:
-				print("is")
-				if self.anim.currentFrameNum < 4 or self.anim.currentFrameNum > 7:
-					print("good")
-					self.anim.currentFrameNum = 4
+				if self.anim.currentFrameNum < 5 or self.anim.currentFrameNum > 8:
+					self.anim.currentFrameNum = 5
 			self.anim.play()
 		else:
 			self.anim.pause()
 			if self.left == True:
 				self.anim.currentFrameNum = 0
 			if self.left == False:
-				self.anim.currentFrameNum = 4
+				self.anim.currentFrameNum = 5
 
 		drawer.drawAnim(self.image, self.anim, screen, screenPosition)

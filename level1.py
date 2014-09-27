@@ -15,7 +15,7 @@ class Level1(Level):
 		self.image = image
 		self.img = pygame.image.load(image).convert()
 
-		playerAnim = pyganim.PygAnimation([('images/granny.png', 0.1), ('images/granny2.png', 0.1), ('images/granny3.png', 0.1), ('images/granny2.png', 0.1), ('images/grannyr.png', 0.1), ('images/granny2r.png', 0.1), ('images/granny3r.png', 0.1), ('images/granny2r.png', 0.1)])
+		playerAnim = pyganim.PygAnimation([('images/granny.png', 0.1), ('images/granny2.png', 0.1), ('images/granny3.png', 0.1), ('images/granny2.png', 0.1), ('images/granny.png', 0.1), ('images/grannyr.png', 0.1), ('images/granny2r.png', 0.1), ('images/granny3r.png', 0.1), ('images/granny2r.png', 0.1), ('images/grannyr.png', 0.1)])
 		self.player = Player((midx - 430 ,midy + 200), 'images/granny.png', playerAnim, world)
 		self.walls = [
 			#screenPos, Size
