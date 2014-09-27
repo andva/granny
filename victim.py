@@ -18,7 +18,7 @@ class Victim(character.Character):
 		self.screenPosition = screenPosition
 		self.anim = anim
 		self.image = image
-		self.fovAngle = 60
+		self.fovAngle = 70
 		self.direction = (1, 0)
 		self.path = []
 		self.taskList = taskList
@@ -142,7 +142,7 @@ class Victim(character.Character):
 		playerScreenPos = player.getScreenPosition()
 		victimToPlayer = Box2D.b2Vec2((playerScreenPos[0] - self.screenPosition[0],playerScreenPos[1] - self.screenPosition[1]));
 		victimToPlayer.Normalize()
-		rawDot = Box2D.b2Dot(victimToPlayer, (self.direction[0], self.direction[1]))
+		rawDot = min(1., max(-1., Box2D.b2Dot(victimToPlayer, (self.direction[0], self.direction[1]))))
 		if (rawDot > 0):
 			dot = constants.rad2deg(math.acos(rawDot))
 			if (dot < self.fovAngle / 2.):

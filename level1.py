@@ -27,7 +27,9 @@ class Level1(Level):
 			#screenPos, Size
 			# MAIN WALLS #############################################
 			Wall((midx - 545, midy - 20), (3,250), world), #LEFT WALL
-			Wall((midx, midy - 260), (540,3), world), # TOP WALL
+			Wall((midx - 235, midy - 205), (345,70), world), # TOP WALL
+			Wall((midx + 350, midy - 305), (240,50), world), # TOP WALL
+
 			Wall((midx, midy + 220), (540,3), world), # BOTTOM WALL
 			Wall((midx + 522, midy - 155), (3,90), world), #RIGHT WALL TOP
 			Wall((midx + 522, midy + 120), (3,110), world), #RIGHT WALL BOTTOM
@@ -40,13 +42,19 @@ class Level1(Level):
 			Wall((midx - 510, midy + 60 ), (40,70), world), #GRANNY LEFT WALL
 
 			# CORRIDOR ##############################################
-			Wall((midx + 50, midy - 8), (470,3), world), # BOTTOM WALL
+			Wall((midx - 60, midy + 100), (300,120), world), # BOTTOM WALL
+			Wall((midx - 60, midy + 160), (350,100), world), # BOTTOM WALL 2
+			Wall((midx + 410, midy + 160), (25, 300), world), # RECEPTION WALL
+			Wall((midx + 300, midy - 120), (100, 30), world), # RECEPTION WALL
+			Wall((midx + 390, midy + 90), (40, 30), world), # RECEPTION WALL
+
 			]
 
 		self.rooms = [
 			Room(0, (midx - 500, midy + 180), (300, 300)),
-			Room(1, (midx - 20, midy - 150), (1120, 350)),
-			
+			Room(1, (midx - 155, midy - 60), (750, 170)),
+			Room(2, (midx + 320, midy - 222), (440, 150)),
+			Room(3, (midx + 320, midy + 70), (200, 400)),
 		]
 
 		victimAnim = pyganim.PygAnimation([('images/victim.png', 0.1), ('images/victim2.png', 0.1), ('images/victim3.png', 0.1), ('images/victim2.png', 0.1), ('images/victim.png', 0.1),
@@ -57,10 +65,12 @@ class Level1(Level):
 				'images/victim.png',
 				victimAnim,
 				world,
-				TaskList(
+				TaskList([
 					#screenpos, time(ms), name
-					[Task((201, 532), 3000, "a"),
-					Task((207, 175), 3000, "b")]
+					Task((964, 386), 3000, "a"),
+					Task((374, 291), 3000, "b"),
+					#Task((1215, 342), 2000, "c"),
+					]
 				)),
 		]
 		self.asignRooms()

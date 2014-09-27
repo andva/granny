@@ -10,7 +10,8 @@ class Task:
 class TaskList:
 	def __init__(self, tasks):
 		self.tasks = tasks
-		self.currentTaskId = 0
+		self.currentTaskId = -1
+		self.currentTaskId = self.getRandomTask()
 		self.startTime = 0
 		self.done = True
 
