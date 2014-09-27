@@ -13,6 +13,7 @@ from musicManager import MusicManager
 from character import Character
 import listeners
 import viewManager
+import drawer
 
 def handleInput():
 	move = Box2D.b2Vec2(0,0)
@@ -37,7 +38,6 @@ def handleInput():
 					victimY = v.getScreenPosition()[1]
 					if(math.hypot(playerX - victimX, playerY - victimY) < 50):
 						v.dead = True
-
 
 
 	for e in pygame.event.get():
@@ -89,6 +89,9 @@ def worldAfterUpdate(w):
 		i = 0
 		for v in viewManager.currentView[0].victims:
 			if(v.dead == True):
+				x = v.getScreenPosition()[0]
+				y = v.getScreenPosition()[1]
+				viewManager.currentView[0].deadBodies.append((x,y))
 				w.DestroyBody(v.physicsBody)
 				del viewManager.currentView[0].victims[i]
 			i += 1
@@ -113,6 +116,8 @@ def main():
 		playtime += milliseconds / 1000.0
 
 		move = handleInput()
+
+
 
 		viewManager.currentView[0].draw(screen)
 		viewManager.currentView[0].movePlayer(move)
