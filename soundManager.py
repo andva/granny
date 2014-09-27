@@ -2,10 +2,15 @@ import pygame, sys
 from pygame.locals import *
 
 class SoundManager:
-	click = 0
+	cane = 0
+	breaking = 0
 
 	def __init__(self):
-		SoundManager.click = pygame.mixer.Sound('sounds/click.wav')
+		SoundManager.cane = pygame.mixer.Sound('sounds/cane.wav')
+		SoundManager.breaking = pygame.mixer.Sound('sounds/breaking.wav')
 
-	def playClick(self):
-		SoundManager.click.play()
+	def playCane(self):
+		SoundManager.cane.play()
+
+	def playBreaking(self):
+		SoundManager.breaking.play()

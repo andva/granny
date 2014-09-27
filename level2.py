@@ -8,6 +8,7 @@ from room import Room
 import constants
 import pyganim
 import pygame, sys
+from destructable import Destructable
 from pygame.locals import *
 
 class Level2(Level):
@@ -108,6 +109,12 @@ class Level2(Level):
 				),
 				'images/collisionMap2.png'
 			),
+		]
+
+		tvAnim = pyganim.PygAnimation([('images/tv.png', 0.1), ('images/tv3.png', 0.1), ('images/tv4.png', 0.1)])
+		self.destructables = [
+			Destructable((13, 107), tvAnim, 'images/tv.png'),
+			Destructable((13, 439), tvAnim, 'images/tv.png'),
 		]
 
 
