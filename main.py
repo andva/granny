@@ -127,14 +127,11 @@ def worldAfterUpdate(w):
 			for v in w.bodies:
 				w.DestroyBody(v)
 
-
-			viewManager.loadLevel(1, w)
 			if (viewManager.currentLevel[0] == 0):
+				viewManager.loadLevel(1, w)
 				viewManager.currentView[0].deadBodies = []
-			#if (viewManager.currentLevel[0] == 1):
-
-
-
+			if (viewManager.currentLevel[0] == 1):
+				viewManager.loadLevel(1, w)
 
 def main():
 	screen = initPygame()

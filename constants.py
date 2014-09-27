@@ -22,6 +22,9 @@ PATH_MAP_INV_SCALE = 10.
 highScore = 0
 myfont = 0
 
+WON = False
+LOST = False
+
 def screen2WorldNoFlip(pos):
 	return [p / PPM for p in pos]
 
