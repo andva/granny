@@ -19,23 +19,24 @@ def handleInput():
 	scale = constants.PLAYER_SPEED_REGULAR
 
 	keys_pressed = pygame.key.get_pressed()
-	if keys_pressed[K_a]:
-		move += (-1, 0)
-	if keys_pressed[K_d]:
-		move += (1, 0)
-	if keys_pressed[K_w]:
-		move += (0, 1)
-	if keys_pressed[K_s]:
-		move += (0, -1)
 	if viewManager.currentView[0].type == 'level':
-		if keys_pressed[K_RETURN]:
-			for v in viewManager.currentView[0].victims:
-				playerX = viewManager.currentView[0].player.getScreenPosition()[0]
-				playerY = viewManager.currentView[0].player.getScreenPosition()[1]
-				victimX = v.getScreenPosition()[0]
-				victimY = v.getScreenPosition()[1]
-				if(math.hypot(playerX - victimX, playerY - victimY) < 50):
-					v.dead = True
+		if viewManager.currentView[0].player.anim.currentFrameNum < 11 and viewManager.currentView[0].player.left == True or viewManager.currentView[0].player.anim.currentFrameNum < 17 and viewManager.currentView[0].player.left == False:
+			if keys_pressed[K_a]:
+				move += (-1, 0)
+			if keys_pressed[K_d]:
+				move += (1, 0)
+			if keys_pressed[K_w]:
+				move += (0, 1)
+			if keys_pressed[K_s]:
+				move += (0, -1)
+			if keys_pressed[K_RETURN]:
+				for v in viewManager.currentView[0].victims:
+					playerX = viewManager.currentView[0].player.getScreenPosition()[0]
+					playerY = viewManager.currentView[0].player.getScreenPosition()[1]
+					victimX = v.getScreenPosition()[0]
+					victimY = v.getScreenPosition()[1]
+					if(math.hypot(playerX - victimX, playerY - victimY) < 50):
+						v.dead = True
 
 
 
