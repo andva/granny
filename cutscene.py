@@ -18,8 +18,8 @@ class Cutscene:
 
 	def draw(self, screen):
 		d = pygame.time.get_ticks() % 1
-		if(d == 0):
-			self.i -= 3
+		if(d == 0 and self.i > -720):
+			self.i -= 2
 		drawer.drawImage(self.img, screen, (0,self.i))
 
 	def movePlayer(self, deltaP):
