@@ -8,6 +8,7 @@ import drawer
 class Victim(character.Character):
 
 	moving = False
+	dead = False
 
 	def __init__(self, screenPosition, image, anim, world):
 		self.screenPosition = screenPosition
@@ -57,15 +58,16 @@ class Victim(character.Character):
 		]
 
 	def drawCharacter(self, screen, screenPosition):
-		if(self.moving == True):
-			self.anim.play()
-		else:
-			self.anim.pause()
-			self.anim.currentFrameNum = 0
-		drawer.drawAnim(self.image, self.anim, screen, screenPosition)
-		#draw fov
+		if(self.dead == False):
+			if(self.moving == True):
+				self.anim.play()
+			else:
+				self.anim.pause()
+				self.anim.currentFrameNum = 0
+			drawer.drawAnim(self.image, self.anim, screen, screenPosition)
+			#draw fov
 
-		pygame.draw.polygon(screen, (80,80,100,255), self.calcFovPolygon())
+			pygame.draw.polygon(screen, (80,80,100,255), self.calcFovPolygon())
 
 	def seesPlayer(self, player):
 		playerScreenPos = player.getScreenPosition()

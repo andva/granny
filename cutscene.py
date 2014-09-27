@@ -9,6 +9,7 @@ class Cutscene:
 	i = 0
 	id = 0
 	img = 0
+	type = 'cutscene'
 
 	def __init__(self, image, id):
 		self.image = image

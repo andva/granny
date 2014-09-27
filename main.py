@@ -1,5 +1,6 @@
 import pygame, sys
 from pygame.locals import *
+import math
 import Box2D
 
 import constants
@@ -26,6 +27,24 @@ def handleInput():
 		move += (0, 1)
 	if keys_pressed[K_s]:
 		move += (0, -1)
+	if keys_pressed[K_RETURN]:
+		for v in viewManager.currentView[0].victims:
+			playerX = viewManager.currentView[0].player.getScreenPosition()[0]
+			playerY = viewManager.currentView[0].player.getScreenPosition()[1]
+			victimX = v.getScreenPosition()[0]
+			victimY = v.getScreenPosition()[1]
+			if(math.hypot(playerX - victimX, playerY - victimY) < 50):
+				v.dead = True
+
+
+
+	for e in pygame.event.get():
+			if e.type == QUIT:
+				pygame.quit()
+				sys.exit()
+			if e.type == pygame.KEYDOWN:
+				if e.key == pygame.K_b:
+					constants.DEBUG = not constants.DEBUG
 
 	move.Normalize()
 	return move * scale
@@ -62,9 +81,15 @@ def render(w, screen):
 
 def worldAfterUpdate(w):
 	w.Step(constants.TIME_STEP, constants.VEL_ITER, constants.POS_ITER)
-
 	w.ClearForces()
 	resetForces(w)
+	if(viewManager.currentView[0].type == 'level'):
+		i = 0
+		for v in viewManager.currentView[0].victims:
+			if(v.dead == True):
+				w.DestroyBody(v.physicsBody)
+				del viewManager.currentView[0].victims[i]
+			i += 1
 
 def main():
 	screen = initPygame()
@@ -84,13 +109,7 @@ def main():
 		screen.fill((100,100,100,0))
 		milliseconds = clock.tick(constants.FPS)
 		playtime += milliseconds / 1000.0
-		for e in pygame.event.get():
-			if e.type == QUIT:
-				pygame.quit()
-				sys.exit()
-			if e.type == pygame.KEYDOWN:
-				if e.key == pygame.K_b:
-					constants.DEBUG = not constants.DEBUG
+
 
 		move = handleInput()
 

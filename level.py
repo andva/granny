@@ -5,6 +5,7 @@ class Level:
 	id = 0
 	image = 0
 	img = 0
+	type = 'level'
 
 	def __init__(self, player):
 		print "hej"
