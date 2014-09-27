@@ -13,6 +13,7 @@ class Level:
 		self.victims = []
 		self.doors = []
 		self.bodies = []
+		self.walls = []
 
 
 	def debugDraw(self, screen):
@@ -31,7 +32,14 @@ class Level:
 	def movePlayer(self, deltaP):
 		self.player.move(deltaP)
 
-	def update(self):
+	def update(self, world):
 		for v in self.victims:
 			v.walk()
 			v.seesPlayer(self.player)
+
+	def initPhysics(self, world):
+		self.player.addPhysics(world)
+		for v in self.victims:
+			v.addPhysics(world)
+		for w in self.walls:
+			w.addPhysics(world)

@@ -59,7 +59,7 @@ def initPygame():
 	pygame.mixer.pre_init(44100, -16, 1, 512)
 	pygame.init()
 	screen = pygame.display.set_mode((constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
-	pygame.display.set_caption("Hello World")
+	pygame.display.set_caption("")
 	return screen
 
 
@@ -111,12 +111,11 @@ def main():
 		milliseconds = clock.tick(constants.FPS)
 		playtime += milliseconds / 1000.0
 
-
 		move = handleInput()
 
 		viewManager.currentView[0].draw(screen)
 		viewManager.currentView[0].movePlayer(move)
-		viewManager.currentView[0].update()
+		viewManager.currentView[0].update(w)
 		render(w, screen)
 
 		worldAfterUpdate(w)

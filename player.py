@@ -10,14 +10,19 @@ class Player(character.Character):
 	left = True
 
 	def __init__(self, screenPosition, image, anim, world):
-		character.Character()
-		self.physicsBody = world.CreateDynamicBody(position=constants.screen2World(screenPosition), angle=15)
-		self.physicsBody.CreateCircleFixture(radius=1.0, friction=0.0, density=0.3)
+		super(Player, self).__init__()
 		self.anim = anim
 		self.image = image
+		self.startPositionScreen = screenPosition
+
+	def addPhysics(self, world):
+		self.physicsBody = world.CreateDynamicBody(position=constants.screen2World(self.startPositionScreen), angle=15)
+		self.physicsBody.CreateCircleFixture(radius=1.0, friction=0.0, density=0.3)
+		self.initialized = True
 
 	def move(self, deltaP):
-		self.physicsBody.ApplyLinearImpulse(deltaP, self.physicsBody.position, True)
+		if (self.initialized):
+			self.physicsBody.ApplyLinearImpulse(deltaP, self.physicsBody.position, True)
 
 	def drawCharacter(self, screen, screenPosition):
 		keys_pressed = pygame.key.get_pressed()

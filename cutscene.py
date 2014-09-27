@@ -25,7 +25,7 @@ class Cutscene:
 	def movePlayer(self, deltaP):
 		pass
 
-	def update(self):
+	def update(self, world):
 		keys_pressed = pygame.key.get_pressed()
 		if keys_pressed[K_SPACE]:
-			viewManager.loadLevel(self.id)
+			viewManager.loadLevel(self.id, world)

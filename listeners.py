@@ -4,7 +4,7 @@ class ContactListener(Box2D.b2ContactListener):
     def __init__(self):
         Box2D.b2ContactListener.__init__(self)
     def BeginContact(self, contact):
-        print "hej"
+        pass
     def EndContact(self, contact):
         pass
     def PreSolve(self, contact, oldManifold):
