@@ -19,15 +19,10 @@ class Victim(character.Character):
 		self.image = image
 		self.fovAngle = 60
 		self.direction = (1, 0)
+		self.path = []
 		graph, nodes = self.createCollisionMap()
 		paths = AStarGrid(graph)
 		self.setWaypoint((screenPosition[0], screenPosition[1] + 100), nodes, paths)
-		start, end = nodes[28][18], nodes[96][21]
-		path = paths.search(start, end)
-		if path is None:
-			print "No path"
-		else:
-			print "Found path", constants.pathToScreen([path[0].x, path[0].y])
 
 	def createCollisionMap(self):
 		collisionMap = pygame.image.load("images/collisionMap.png").convert()
@@ -54,11 +49,11 @@ class Victim(character.Character):
 		start = self.convertToPathCoord(self.startPositionScreen[0], self.startPositionScreen[1])
 		goalI = self.convertToPathCoord(self.startPositionScreen[0] + 100, self.startPositionScreen[1])
 		s, e = nodes[start[0]][start[1]], nodes[goalI[0]][goalI[1]]
-		path = paths.search(s, e)
-		if path is None:
+		self.path = paths.search(s, e)
+		if self.path is None:
 			print "No path"
 		else:
-			print "Found path", constants.pathToScreen([path[0].x, path[0].y])
+			print "Found path", constants.pathToScreen([self.path[0].x, self.path[0].y])
 		print self.startPositionScreen[0], self.startPositionScreen[1], start, goalI
 
 	def addPhysics(self, world):
