@@ -11,6 +11,8 @@ class Victim(character.Character):
 
 	moving = False
 	dead = False
+	left = True
+	prePosX = 0
 
 	def __init__(self, screenPosition, image, anim, world, taskList):
 		super(Victim, self).__init__()
@@ -124,11 +126,28 @@ class Victim(character.Character):
 
 	def drawCharacter(self, screen, screenPosition):
 		if(self.dead == False):
+			if(self.screenPosition < self.prePosX):
+				self.prePosX = self.screenPosition
+				self.left = True
+			else:
+				self.prePosX = self.screenPosition
+				self.left = False
+
 			if(self.moving == True):
+				if(self.left == True):
+					if(self.anim.currentFrameNum > 3):
+						self.anim.currentFrameNum = 0
+				if(self.left == False):
+					if(self.anim.currentFrameNum < 5 or self.anim.currentFrameNum > 8):
+						self.anim.currentFrameNum = 5
+
 				self.anim.play()
 			else:
 				self.anim.pause()
-				self.anim.currentFrameNum = 0
+				if(self.left == True):
+					self.anim.currentFrameNum = 0
+				if(self.left == False):
+					self.anim.currentFrameNum = 5
 			drawer.drawAnim(self.image, self.anim, screen, screenPosition)
 			#draw fov
 			color = (80,80,80,10)
