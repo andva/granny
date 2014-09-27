@@ -8,16 +8,18 @@ class Cutscene:
 	image = 0
 	i = 0
 	id = 0
+	img = 0
 
 	def __init__(self, image, id):
 		self.image = image
 		self.id = id
+		self.img = pygame.image.load(self.image)
 
 	def draw(self, screen):
 		d = pygame.time.get_ticks() % 1
 		if(d == 0):
 			self.i -= 3
-		drawer.drawImage(self.image, screen, (0,self.i))
+		drawer.drawImage(self.img, screen, (0,self.i))
 
 	def movePlayer(self, deltaP):
 		pass

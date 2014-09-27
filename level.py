@@ -1,7 +1,10 @@
+import drawer
 
 class Level:
 
 	id = 0
+	image = 0
+	img = 0
 
 	def __init__(self, player):
 		print "hej"
@@ -10,15 +13,18 @@ class Level:
 		self.doors = []
 		self.bodies = []
 
+
 	def debugDraw(self, screen):
 		self.player.debugDraw(screen)
 
 	def draw(self, screen):
+		drawer.drawImage(self.img, screen, (0,0))
 		screenPosition = self.player.getScreenPosition()
 		self.player.drawCharacter(screen, screenPosition)
 
 		for v in self.victims:
 			v.drawCharacter(screen, v.getScreenPosition())
+
 
 
 	def movePlayer(self, deltaP):

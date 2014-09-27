@@ -68,7 +68,7 @@ def worldAfterUpdate(w):
 def main():
 	screen = initPygame()
 	w = initWorld()
-	level1 = Level1(w,0)
+	level1 = Level1(w, 'images/level1.png', 0)
 	cutscene1 = Cutscene('images/cutscene.png',0)
 
 	sound = SoundManager()

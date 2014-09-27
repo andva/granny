@@ -4,12 +4,16 @@ from wall import Wall
 from victim import Victim
 import constants
 import pyganim
+import pygame, sys
+from pygame.locals import *
 
 class Level1(Level):
-	def __init__(self, world, id):
+	def __init__(self, world, image, id):
 		midx = constants.SCREEN_WIDTH / 2.0
 		midy = constants.SCREEN_HEIGHT / 2.0
 		self.id = id
+		self.image = image
+		self.img = pygame.image.load(image)
 
 		playerAnim = pyganim.PygAnimation([('images/granny.png', 0.1), ('images/granny2.png', 0.1), ('images/granny.png', 0.1), ('images/granny3.png', 0.1)])
 		self.player = Player((midx,midy), 'images/granny.png', playerAnim, world)

@@ -7,5 +7,4 @@ def drawAnim(image, anim, screen, screenPosition):
 
 
 def drawImage(image, screen, screenPosition):
-	img = pygame.image.load(image)
-	screen.blit(img,(screenPosition[0], screenPosition[1]))
+	screen.blit(image,(screenPosition[0], screenPosition[1]))
