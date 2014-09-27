@@ -2,6 +2,8 @@ from level import Level
 from player import Player
 from wall import Wall
 from victim import Victim
+from tasklist import TaskList
+from tasklist import Task
 import constants
 import pyganim
 import pygame, sys
@@ -43,6 +45,15 @@ class Level1(Level):
 		victimAnim = pyganim.PygAnimation([('images/victim.png', 0.1), ('images/victim2.png', 0.1), ('images/victim3.png', 0.1), ('images/victim2.png', 0.1), ('images/victim.png', 0.1),
 										   ('images/victimr.png', 0.1), ('images/victim2r.png', 0.1), ('images/victim3r.png', 0.1), ('images/victim2r.png', 0.1), ('images/victimr.png', 0.1)])
 		self.victims = [
-			Victim((midx + 100, midy - 30), 'images/victim.png', victimAnim, world)
+			Victim(
+				(midx + 100, midy - 60),
+				'images/victim.png',
+				victimAnim,
+				world,
+				TaskList(
+					#screenpos, time(ms), name
+					[Task((201, 532), 6000, "a"),
+					Task((207, 175), 6000, "b")]
+				))
 		]
 		Level(self.player)
