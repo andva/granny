@@ -34,4 +34,4 @@ class Cutscene:
 	def update(self, world):
 		keys_pressed = pygame.key.get_pressed()
 		if keys_pressed[K_SPACE]:
-			viewManager.loadLevel(self.id, world)
+			viewManager.loadLevel(0, world)

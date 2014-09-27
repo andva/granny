@@ -1,0 +1,81 @@
+from level import Level
+from player import Player
+from wall import Wall
+from victim import Victim
+from tasklist import TaskList
+from tasklist import Task
+from room import Room
+import constants
+import pyganim
+import pygame, sys
+from pygame.locals import *
+
+class Level2(Level):
+	def __init__(self, world, image, id):
+		midx = constants.SCREEN_WIDTH / 2.0
+		midy = constants.SCREEN_HEIGHT / 2.0
+		self.id = id
+		self.image = image
+		self.img = pygame.image.load(image).convert()
+
+		playerAnim = pyganim.PygAnimation([('images/granny.png', 0.1), ('images/granny2.png', 0.1), ('images/granny3.png', 0.1), ('images/granny2.png', 0.1), ('images/granny.png', 0.1),
+										   ('images/grannyr.png', 0.1), ('images/granny2r.png', 0.1), ('images/granny3r.png', 0.1), ('images/granny2r.png', 0.1), ('images/grannyr.png', 0.1),
+										   ('images/grannyf.png', 0.1), ('images/grannyf2.png', 0.1), ('images/grannyf3.png', 0.1), ('images/grannyf2.png', 0.1), ('images/grannyf.png', 0.1), ('images/granny.png', 0.1),
+										   ('images/grannyfr.png', 0.1), ('images/grannyf2r.png', 0.1), ('images/grannyf3r.png', 0.1), ('images/grannyf2r.png', 0.1), ('images/grannyfr.png', 0.1), ('images/granny.png', 0.1)])
+		self.player = Player((midx - 0 ,midy + 300), 'images/granny.png', playerAnim, world)
+		self.walls = [
+			#screenPos, Size
+			# MAIN WALLS #############################################
+			Wall((midx - 635, midy - 90), (3,300), world),
+			Wall((midx + 620, midy - 90), (3,300), world),
+			Wall((midx + 640, midy - 310), (1280,3), world),
+			Wall((midx + 440, midy + 175), (400,40), world),
+			Wall((midx - 450, midy + 175), (400,40), world),
+			Wall((midx - 465, midy - 130), (400,30), world),
+			Wall((midx + 270, midy - 130), (225,30), world),
+			Wall((midx - 450, midy + 67), (15,100), world),
+			Wall((midx - 470, midy + 10), (30,40), world),
+			Wall((midx - 240, midy + 120), (15,40), world),
+			Wall((midx - 240, midy - 50), (15,40), world),
+			Wall((midx + 210, midy + 60), (15,70), world),
+			Wall((midx + 123, midy - 170), (15,20), world),
+			Wall((midx + 430, midy - 170), (15,20), world),
+			Wall((midx - 155, midy - 200), (10,40), world),
+			Wall((midx + 440, midy + 350), (400,40), world),
+			Wall((midx - 450, midy + 350), (400,40), world),
+			]
+
+		self.rooms = [
+			Room(0, (midx - 20, midy + 30), (450, 320)),
+			Room(0, (midx + 430, midy + 30), (450, 320)),
+			Room(0, (midx - 350, midy + 30), (220, 320)),
+			Room(0, (midx - 570, midy + 30), (220, 320)),
+			Room(0, (midx + 360, midy - 290), (500, 320)),
+			Room(0, (midx - 20, midy - 290), (250, 310)),
+			Room(0, (midx - 400, midy - 290), (500, 310)),
+
+		]
+
+		victimAnim = pyganim.PygAnimation([('images/victim.png', 0.1), ('images/victim2.png', 0.1), ('images/victim3.png', 0.1), ('images/victim2.png', 0.1), ('images/victim.png', 0.1),
+										   ('images/victimr.png', 0.1), ('images/victim2r.png', 0.1), ('images/victim3r.png', 0.1), ('images/victim2r.png', 0.1), ('images/victimr.png', 0.1)])
+		self.victims = [
+			Victim(
+				(midx + 100, midy - 60),
+				'images/victim.png',
+				victimAnim,
+				world,
+				TaskList([
+					#screenpos, time(ms), name
+
+					Task((964, 386), 3000, "a"),
+					Task((200, 200), 3000, "b"),
+					#Task((1215, 342), 2000, "c"),
+					]
+				),
+				'images/collisionMap2.png'
+			),
+
+		]
+		self.asignRooms()
+		Level(self.player)
+

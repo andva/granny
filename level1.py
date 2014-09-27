@@ -77,7 +77,9 @@ class Level1(Level):
 					Task((374, 291), 3000, "b"),
 					#Task((1215, 342), 2000, "c"),
 					]
-				)),
+				),
+				'images/collisionMap.png'
+			),
 
 		]
 		tvAnim = pyganim.PygAnimation([('images/tv.png', 0.1), ('images/tv3.png', 0.1), ('images/tv4.png', 0.1)])
