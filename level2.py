@@ -8,6 +8,7 @@ from room import Room
 import constants
 import pyganim
 import pygame, sys
+from destructable import Destructable
 from pygame.locals import *
 
 class Level2(Level):
@@ -23,6 +24,7 @@ class Level2(Level):
 										   ('images/grannyf.png', 0.1), ('images/grannyf2.png', 0.1), ('images/grannyf3.png', 0.1), ('images/grannyf2.png', 0.1), ('images/grannyf.png', 0.1), ('images/granny.png', 0.1),
 										   ('images/grannyfr.png', 0.1), ('images/grannyf2r.png', 0.1), ('images/grannyf3r.png', 0.1), ('images/grannyf2r.png', 0.1), ('images/grannyfr.png', 0.1), ('images/granny.png', 0.1)])
 		self.player = Player((midx - 0 ,midy + 300), 'images/granny.png', playerAnim, world)
+		Level.__init__(self, self.player)
 		self.walls = [
 			#screenPos, Size
 			# MAIN WALLS #############################################
@@ -47,12 +49,12 @@ class Level2(Level):
 
 		self.rooms = [
 			Room(0, (midx - 20, midy + 30), (450, 320)),
-			Room(0, (midx + 430, midy + 30), (450, 320)),
-			Room(0, (midx - 350, midy + 30), (220, 320)),
-			Room(0, (midx - 570, midy + 30), (220, 320)),
-			Room(0, (midx + 360, midy - 290), (500, 320)),
-			Room(0, (midx - 20, midy - 290), (250, 310)),
-			Room(0, (midx - 400, midy - 290), (500, 310)),
+			Room(1, (midx + 430, midy + 30), (450, 320)),
+			Room(2, (midx - 350, midy + 30), (220, 320)),
+			Room(3, (midx - 570, midy + 30), (220, 320)),
+			Room(4, (midx + 360, midy - 290), (500, 320)),
+			Room(5, (midx - 20, midy - 290), (250, 310)),
+			Room(6, (midx - 400, midy - 290), (500, 310)),
 
 		]
 
@@ -66,16 +68,56 @@ class Level2(Level):
 				world,
 				TaskList([
 					#screenpos, time(ms), name
-
-					Task((964, 386), 3000, "a"),
-					Task((200, 200), 3000, "b"),
-					#Task((1215, 342), 2000, "c"),
+					Task((284, 138), 3000, "a"),
+					Task((623, 391), 3000, "b"),
+					Task((1151, 417), 3000, "c"),
+					Task((290, 403), 3000, "c"),
+					Task((1167, 129), 3000, "c"),
 					]
 				),
 				'images/collisionMap2.png'
 			),
-
+			Victim(
+				(midx + 500, midy - 100),
+				'images/victim.png',
+				victimAnim,
+				world,
+				TaskList([
+					#screenpos, time(ms), name
+					Task((284, 138), 3000, "a"),
+					Task((623, 391), 3000, "b"),
+					Task((1151, 417), 3000, "c"),
+					Task((290, 403), 3000, "c"),
+					Task((1167, 129), 3000, "c"),
+					]
+				),
+				'images/collisionMap2.png'
+			),
+			Victim(
+				(midx - 500, midy - 60),
+				'images/victim.png',
+				victimAnim,
+				world,
+				TaskList([
+					#screenpos, time(ms), name
+					Task((284, 138), 3000, "a"),
+					Task((623, 391), 3000, "b"),
+					Task((290, 403), 3000, "c"),
+					Task((1167, 129), 3000, "c"),
+					Task((1151, 417), 3000, "c"),
+					]
+				),
+				'images/collisionMap2.png'
+			),
 		]
+
+		tvAnim = pyganim.PygAnimation([('images/tv.png', 0.1), ('images/tv3.png', 0.1), ('images/tv4.png', 0.1)])
+		self.destructables = [
+			Destructable((13, 107), tvAnim, 'images/tv.png'),
+			Destructable((13, 439), tvAnim, 'images/tv.png'),
+		]
+
+
+
 		self.asignRooms()
-		Level(self.player)
 

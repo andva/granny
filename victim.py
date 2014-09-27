@@ -113,12 +113,15 @@ class Victim(character.Character):
 	def calcFovPolygon(self):
 		sp = self.getScreenPosition()
 
-		rv1 = constants.rotateVector([-self.direction[0], -self.direction[1]], self.fovAngle / 2.)
-		rv2 = constants.rotateVector([-self.direction[0], -self.direction[1]], -self.fovAngle / 2.)
+		rv1 = constants.rotateVector([self.direction[0], self.direction[1]], self.fovAngle / 2.)
+		rv2 = constants.rotateVector([self.direction[0], self.direction[1]], -self.fovAngle / 2.)
+		scale = 40.
+		sp[0] += self.direction[0] * scale * 1.3
+		sp[1] += self.direction[1] * scale * 1.3
 		return [
 			sp,
-			(sp[0] - rv1[0] * 500., sp[1] - rv1[1] * 500.),
-			(sp[0] - rv2[0] * 500., sp[1] - rv2[1] * 500.)
+			(sp[0] - rv1[0] * scale, sp[1] - rv1[1] * scale),
+			(sp[0] - rv2[0] * scale, sp[1] - rv2[1] * scale)
 		]
 
 	def drawCharacter(self, screen, screenPosition):
@@ -147,10 +150,9 @@ class Victim(character.Character):
 					self.anim.currentFrameNum = 5
 			drawer.drawAnim(self.image, self.anim, screen, screenPosition)
 			#draw fov
-			color = (80,80,80,10)
+			color = (180,230,180,10)
 			if (self.seenPlayer):
 				color =(255,80,100,10)
-
 			pygame.draw.polygon(screen, color, self.calcFovPolygon())
 
 	def testIfSeesPlayer(self, player, world):

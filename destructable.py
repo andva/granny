@@ -8,16 +8,18 @@ class Destructable(object):
 		self.lastHit = 0
 		self.anim = anim
 		self.image = image
+		self.lastScore = 0
 		pass
 
 	def hitDelay(self):
-		return pygame.time.get_ticks() - self.lastHit > 100
+		return pygame.time.get_ticks() - self.lastHit > 800
 
 	def hit(self):
 		if (self.hits < self.anim.numFrames):
 			self.hits += 1
 			self.lastHit = pygame.time.get_ticks()
-			return self.getHighScore()
+			self.lastScore = self.getHighScore()
+			return self.lastScore
 		return 0
 
 	def getScreenPosition(self):
