@@ -6,7 +6,7 @@ import viewManager
 class Cutscene:
 
 	image = 0
-	i = 0
+	i = 100
 	id = 0
 	img = 0
 	type = 'cutscene'
@@ -20,7 +20,10 @@ class Cutscene:
 		d = pygame.time.get_ticks() % 1
 		if(d == 0 and self.i > -720):
 			self.i -= 2
-		drawer.drawImage(self.img, screen, (0,self.i))
+		if(self.i <= 0):
+			drawer.drawImage(self.img, screen, (0,self.i))
+		else:
+			drawer.drawImage(self.img, screen, (0,0))
 
 	def debugDraw(self, screen):
 		pass
