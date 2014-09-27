@@ -15,7 +15,7 @@ import viewManager
 
 def handleInput():
 	move = Box2D.b2Vec2(0,0)
-	scale = 2.0
+	scale = constants.PLAYER_SPEED_REGULAR
 
 	keys_pressed = pygame.key.get_pressed()
 	if keys_pressed[K_a]:
@@ -82,7 +82,7 @@ def main():
 	playtime = 0
 	while True:
 		screen.fill((100,100,100,0))
-		milliseconds = clock.tick(60)
+		milliseconds = clock.tick(constants.FPS)
 		playtime += milliseconds / 1000.0
 		for e in pygame.event.get():
 			if e.type == QUIT:

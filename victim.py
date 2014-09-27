@@ -36,9 +36,12 @@ class Victim(character.Character):
 		else:
 			dir = (0,-1)
 			self.moving = True
+
 		self.direction = dir
+		movement = [dir[0] * constants.VICTIM_SPEED_REGULAR * 0.8, dir[1] * constants.VICTIM_SPEED_REGULAR * 0.8]
 		self.screenPosition = constants.world2Screen(self.physicsBody.position)
-		self.physicsBody.ApplyLinearImpulse(dir, self.physicsBody.position, True)
+
+		self.physicsBody.ApplyLinearImpulse(movement, self.physicsBody.position, True)
 
 	def draw(self):
 		print "hej"
