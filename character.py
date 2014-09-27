@@ -6,7 +6,7 @@ class Character(object):
 
 	anim = []
 	image = 0
-
+	currentRoom = -1
 	def __init__(self):
 		self.initialized = False;
 		pass

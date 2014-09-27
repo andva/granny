@@ -4,6 +4,7 @@ from wall import Wall
 from victim import Victim
 from tasklist import TaskList
 from tasklist import Task
+from room import Room
 import constants
 import pyganim
 import pygame, sys
@@ -40,8 +41,12 @@ class Level1(Level):
 
 			# CORRIDOR ##############################################
 			Wall((midx + 50, midy - 8), (470,3), world), # BOTTOM WALL
-
 			]
+
+		self.rooms = [
+			Room(0, (midx - 500, midy + 180), (300, 300))
+		]
+
 		victimAnim = pyganim.PygAnimation([('images/victim.png', 0.1), ('images/victim2.png', 0.1), ('images/victim3.png', 0.1), ('images/victim2.png', 0.1), ('images/victim.png', 0.1),
 										   ('images/victimr.png', 0.1), ('images/victim2r.png', 0.1), ('images/victim3r.png', 0.1), ('images/victim2r.png', 0.1), ('images/victimr.png', 0.1)])
 		self.victims = [
@@ -52,8 +57,9 @@ class Level1(Level):
 				world,
 				TaskList(
 					#screenpos, time(ms), name
-					[Task((201, 532), 6000, "a"),
-					Task((207, 175), 6000, "b")]
+					[Task((201, 532), 3000, "a"),
+					Task((207, 175), 3000, "b")]
 				))
 		]
+		self.asignRooms()
 		Level(self.player)

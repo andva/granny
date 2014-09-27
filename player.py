@@ -17,7 +17,9 @@ class Player(character.Character):
 
 	def addPhysics(self, world):
 		self.physicsBody = world.CreateDynamicBody(position=constants.screen2World(self.startPositionScreen), angle=15)
-		self.physicsBody.CreateCircleFixture(radius=1.0, friction=0.0, density=0.3)
+		fixture = self.physicsBody.CreateCircleFixture(radius=1.0, friction=0.0, density=0.3)
+		fixture.userData = self
+		self.physicsBody.userData = self
 		self.initialized = True
 
 	def move(self, deltaP):

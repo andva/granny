@@ -24,6 +24,7 @@ class Victim(character.Character):
 		self.taskList = taskList
 		self.graph, self.nodes = self.createCollisionMap()
 		self.paths = AStarGrid(self.graph)
+		self.seenPlayer = False
 
 	def createCollisionMap(self):
 		collisionMap = pygame.image.load("images/collisionMap.png").convert()
@@ -80,6 +81,8 @@ class Victim(character.Character):
 			yd = targetPos[1] - self.screenPosition[1]
 			if (abs(xd) <= 7.1 and abs(yd) <= 7.1):
 				self.path.pop(0)
+				if len(self.path) == 0:
+					self.taskList.startDoingTask()
 
 			self.direction = Box2D.b2Vec2([
 				(targetPos[0] - self.screenPosition[0]),
@@ -89,15 +92,22 @@ class Victim(character.Character):
 			self.physicsBody.ApplyLinearImpulse(movement, self.physicsBody.position, True)
 
 		elif self.taskList.done:
-			goal = self.taskList.getRandomTask().screenPos
-			print "Setting new task"
-			self.setWaypoint(goal)
-			print "done"
+			if True:#not self.seenPlayer:
+				goal = self.taskList.getRandomTask().screenPos
+				print "Setting new task"
+				self.setWaypoint(goal)
+				print "done"
+			else:
+				pass
+				#Panic mode
+		else:
+			self.taskList.update()
 
 	def calcFovPolygon(self):
 		sp = self.getScreenPosition()
-		rv1 = constants.rotateVector(self.direction, self.fovAngle / 2.)
-		rv2 = constants.rotateVector(self.direction, -self.fovAngle / 2.)
+
+		rv1 = constants.rotateVector([-self.direction[0], self.direction[1]], self.fovAngle / 2.)
+		rv2 = constants.rotateVector([-self.direction[0], self.direction[1]], -self.fovAngle / 2.)
 		return [
 			sp,
 			(sp[0] - rv1[0] * 500., sp[1] - rv1[1] * 500.),
@@ -113,9 +123,12 @@ class Victim(character.Character):
 				self.anim.currentFrameNum = 0
 			drawer.drawAnim(self.image, self.anim, screen, screenPosition)
 			#draw fov
+			color = (80,80,80,10)
+			if (self.seenPlayer):
+				color =(255,80,100,10)
 
-			pygame.draw.polygon(screen, (80,80,100,10), self.calcFovPolygon())
-			ptlst = []
+			pygame.draw.polygon(screen, color, self.calcFovPolygon())
+
 			if (self.path != None):
 				if (len(self.path) > 1):
 					for i in range(0, len(self.path) - 1):
@@ -123,13 +136,17 @@ class Victim(character.Character):
 						end = self.convertPathToScreenCoord(self.path[i + 1].x, self.path[i + 1].y)
 						pygame.draw.line(screen, (255, 0, 0, 0), start, end, 10)
 
-	def seesPlayer(self, player):
+	def testIfSeesPlayer(self, player, world):
 		if not self.initialized: return
 		playerScreenPos = player.getScreenPosition()
 		victimToPlayer = Box2D.b2Vec2((playerScreenPos[0] - self.screenPosition[0],playerScreenPos[1] - self.screenPosition[1]));
 		victimToPlayer.Normalize()
-		rawDot = Box2D.b2Dot(victimToPlayer, (-self.direction[0], -self.direction[1]))
+		rawDot = Box2D.b2Dot(victimToPlayer, (self.direction[0], self.direction[1]))
 		if (rawDot > 0):
 			dot = constants.rad2deg(math.acos(rawDot))
 			if (dot < self.fovAngle / 2.):
-				pass
+				if (player.currentRoom == self.currentRoom):
+					self.seesPlayer()
+
+	def seesPlayer(self):
+		self.seenPlayer = True
