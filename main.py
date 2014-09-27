@@ -16,7 +16,7 @@ import listeners
 import viewManager
 import drawer
 
-def handleInput():
+def handleInput(sound):
 	move = Box2D.b2Vec2(0,0)
 	scale = constants.PLAYER_SPEED_REGULAR
 
@@ -32,6 +32,7 @@ def handleInput():
 			if keys_pressed[K_s]:
 				move += (0, -1)
 			if keys_pressed[K_RETURN]:
+				sound.playCane()
 				for v in viewManager.currentView[0].victims:
 					playerX = viewManager.currentView[0].player.getScreenPosition()[0]
 					playerY = viewManager.currentView[0].player.getScreenPosition()[1]
@@ -68,7 +69,7 @@ def resetForces(w):
 		body.__SetAngularVelocity(0)
 
 def initPygame():
-	pygame.mixer.pre_init(44100, -16, 1, 512)
+	#pygame.mixer.pre_init(44100, -16, 1, 512)
 	pygame.init()
 	screen = pygame.display.set_mode((constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
 	pygame.display.set_caption("")
@@ -129,7 +130,7 @@ def main():
 		milliseconds = clock.tick(constants.FPS)
 		playtime += milliseconds / 1000.0
 
-		move = handleInput()
+		move = handleInput(sound)
 
 
 
