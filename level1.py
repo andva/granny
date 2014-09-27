@@ -17,7 +17,10 @@ class Level1(Level):
 		self.image = image
 		self.img = pygame.image.load(image).convert()
 
-		playerAnim = pyganim.PygAnimation([('images/granny.png', 0.1), ('images/granny2.png', 0.1), ('images/granny3.png', 0.1), ('images/granny2.png', 0.1), ('images/granny.png', 0.1), ('images/grannyr.png', 0.1), ('images/granny2r.png', 0.1), ('images/granny3r.png', 0.1), ('images/granny2r.png', 0.1), ('images/grannyr.png', 0.1)])
+		playerAnim = pyganim.PygAnimation([('images/granny.png', 0.1), ('images/granny2.png', 0.1), ('images/granny3.png', 0.1), ('images/granny2.png', 0.1), ('images/granny.png', 0.1),
+										   ('images/grannyr.png', 0.1), ('images/granny2r.png', 0.1), ('images/granny3r.png', 0.1), ('images/granny2r.png', 0.1), ('images/grannyr.png', 0.1),
+										   ('images/grannyf.png', 0.1), ('images/grannyf2.png', 0.1), ('images/grannyf3.png', 0.1), ('images/grannyf2.png', 0.1), ('images/grannyf.png', 0.1), ('images/granny.png', 0.1),
+										   ('images/grannyfr.png', 0.1), ('images/grannyf2r.png', 0.1), ('images/grannyf3r.png', 0.1), ('images/grannyf2r.png', 0.1), ('images/grannyfr.png', 0.1), ('images/granny.png', 0.1)])
 		self.player = Player((midx - 430 ,midy + 200), 'images/granny.png', playerAnim, world)
 		self.walls = [
 			#screenPos, Size
@@ -39,11 +42,12 @@ class Level1(Level):
 			Wall((midx + 50, midy - 8), (470,3), world), # BOTTOM WALL
 
 			]
-		victimAnim = pyganim.PygAnimation([('images/granny.png', 0.1), ('images/granny2.png', 0.1), ('images/granny3.png', 0.1), ('images/granny2.png', 0.1), ('images/grannyr.png', 0.1), ('images/granny2r.png', 0.1), ('images/granny3r.png', 0.1), ('images/granny2r.png', 0.1)])
+		victimAnim = pyganim.PygAnimation([('images/victim.png', 0.1), ('images/victim2.png', 0.1), ('images/victim3.png', 0.1), ('images/victim2.png', 0.1), ('images/victim.png', 0.1),
+										   ('images/victimr.png', 0.1), ('images/victim2r.png', 0.1), ('images/victim3r.png', 0.1), ('images/victim2r.png', 0.1), ('images/victimr.png', 0.1)])
 		self.victims = [
 			Victim(
 				(midx + 100, midy - 60),
-				'images/granny.png',
+				'images/victim.png',
 				victimAnim,
 				world,
 				TaskList(

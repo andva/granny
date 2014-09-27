@@ -74,6 +74,7 @@ class Victim(character.Character):
 	def walk(self):
 		self.screenPosition = constants.world2Screen(self.physicsBody.position)
 		if (len(self.path) > 0):
+			self.moving = True
 			targetPos = self.convertPathToScreenCoord(self.path[0].x, self.path[0].y)
 			xd = targetPos[0] - self.screenPosition[0]
 			yd = targetPos[1] - self.screenPosition[1]
@@ -86,6 +87,7 @@ class Victim(character.Character):
 			self.direction.Normalize()
 			movement = [self.direction[0] * constants.VICTIM_SPEED_REGULAR * 0.8, self.direction[1] * constants.VICTIM_SPEED_REGULAR * 0.8]
 			self.physicsBody.ApplyLinearImpulse(movement, self.physicsBody.position, True)
+
 		elif self.taskList.done:
 			goal = self.taskList.getRandomTask().screenPos
 			print "Setting new task"
