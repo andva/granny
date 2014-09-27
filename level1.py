@@ -13,7 +13,7 @@ class Level1(Level):
 		midy = constants.SCREEN_HEIGHT / 2.0
 		self.id = id
 		self.image = image
-		self.img = pygame.image.load(image)
+		self.img = pygame.image.load(image).convert()
 
 		playerAnim = pyganim.PygAnimation([('images/granny.png', 0.1), ('images/granny2.png', 0.1), ('images/granny.png', 0.1), ('images/granny3.png', 0.1)])
 		self.player = Player((midx,midy), 'images/granny.png', playerAnim, world)

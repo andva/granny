@@ -82,7 +82,7 @@ def main():
 	playtime = 0
 	while True:
 		screen.fill((100,100,100,0))
-		milliseconds = clock.tick(30)
+		milliseconds = clock.tick(60)
 		playtime += milliseconds / 1000.0
 		for e in pygame.event.get():
 			if e.type == QUIT:

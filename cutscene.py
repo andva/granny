@@ -13,7 +13,7 @@ class Cutscene:
 	def __init__(self, image, id):
 		self.image = image
 		self.id = id
-		self.img = pygame.image.load(self.image)
+		self.img = pygame.image.load(self.image).convert()
 
 	def draw(self, screen):
 		d = pygame.time.get_ticks() % 1
