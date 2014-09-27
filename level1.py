@@ -61,7 +61,7 @@ class Level1(Level):
 					#screenpos, time(ms), name
 					[Task((201, 532), 3000, "a"),
 					Task((207, 175), 3000, "b")]
-				)),
+				))
 		]
 		self.asignRooms()
 		Level(self.player)
