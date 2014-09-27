@@ -14,7 +14,7 @@ class Victim(character.Character):
 	left = True
 	prePosX = 0
 
-	def __init__(self, screenPosition, image, anim, world, taskList):
+	def __init__(self, screenPosition, image, anim, world, taskList, collMap):
 		super(Victim, self).__init__()
 		self.startPositionScreen = screenPosition
 		self.screenPosition = screenPosition
@@ -24,12 +24,14 @@ class Victim(character.Character):
 		self.direction = (1, 0)
 		self.path = []
 		self.taskList = taskList
+		self.collMap = collMap
 		self.graph, self.nodes = self.createCollisionMap()
 		self.paths = AStarGrid(self.graph)
 		self.seenPlayer = False
 
+
 	def createCollisionMap(self):
-		collisionMap = pygame.image.load("images/collisionMap.png").convert()
+		collisionMap = pygame.image.load(self.collMap).convert()
 		rect = collisionMap.get_rect()
 		width = rect[2]
 		height = rect[3]

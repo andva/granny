@@ -7,6 +7,7 @@ import constants
 import debugRenderer
 import pyganim
 from level1 import Level1
+from level2 import Level2
 from cutscene import Cutscene
 from soundManager import SoundManager
 from musicManager import MusicManager
@@ -102,12 +103,14 @@ def main():
 	w = initWorld()
 	level1 = Level1(w, 'images/level1.png', 0)
 	cutscene1 = Cutscene('images/cutscene.png',0)
+	level2 = Level2(w, 'images/level2.png', 1)
 
 	sound = SoundManager()
 	music = MusicManager()
 
 	viewManager.levels.insert(0, level1)
 	viewManager.cutscenes.insert(0, cutscene1)
+	viewManager.levels.insert(1, level2)
 	clock = pygame.time.Clock()
 	viewManager.loadCutscene(0)
 	playtime = 0

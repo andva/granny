@@ -10,7 +10,7 @@ import pyganim
 import pygame, sys
 from pygame.locals import *
 
-class Level1(Level):
+class Level2(Level):
 	def __init__(self, world, image, id):
 		midx = constants.SCREEN_WIDTH / 2.0
 		midy = constants.SCREEN_HEIGHT / 2.0
@@ -22,39 +22,38 @@ class Level1(Level):
 										   ('images/grannyr.png', 0.1), ('images/granny2r.png', 0.1), ('images/granny3r.png', 0.1), ('images/granny2r.png', 0.1), ('images/grannyr.png', 0.1),
 										   ('images/grannyf.png', 0.1), ('images/grannyf2.png', 0.1), ('images/grannyf3.png', 0.1), ('images/grannyf2.png', 0.1), ('images/grannyf.png', 0.1), ('images/granny.png', 0.1),
 										   ('images/grannyfr.png', 0.1), ('images/grannyf2r.png', 0.1), ('images/grannyf3r.png', 0.1), ('images/grannyf2r.png', 0.1), ('images/grannyfr.png', 0.1), ('images/granny.png', 0.1)])
-		self.player = Player((midx - 430 ,midy + 200), 'images/granny.png', playerAnim, world)
+		self.player = Player((midx - 0 ,midy + 300), 'images/granny.png', playerAnim, world)
 		self.walls = [
 			#screenPos, Size
 			# MAIN WALLS #############################################
-			Wall((midx - 545, midy - 20), (3,250), world), #LEFT WALL
-			Wall((midx - 235, midy - 205), (345,70), world), # TOP WALL
-			Wall((midx + 350, midy - 305), (240,50), world), # TOP WALL
-
-			Wall((midx, midy + 220), (540,3), world), # BOTTOM WALL
-			Wall((midx + 522, midy - 155), (3,90), world), #RIGHT WALL TOP
-			Wall((midx + 522, midy + 120), (3,110), world), #RIGHT WALL BOTTOM
-			Wall((midx + 600, midy + 20), (60,3), world), #OUTSIDE TOP
-			Wall((midx + 600, midy - 65), (60,3), world), #OUTSIDE BOTTOM
-
-			# GRANNY ROOM ############################################
-			Wall((midx - 386, midy + 110), (10,120), world), #GRANNY RIGHT WALL LARGE
-			Wall((midx - 410, midy + 15), (10,30), world), #GRANNY RIGHT WALL SMALL
-			Wall((midx - 510, midy + 60 ), (40,70), world), #GRANNY LEFT WALL
-
-			# CORRIDOR ##############################################
-			Wall((midx - 60, midy + 100), (300,120), world), # BOTTOM WALL
-			Wall((midx - 60, midy + 160), (350,100), world), # BOTTOM WALL 2
-			Wall((midx + 410, midy + 160), (25, 300), world), # RECEPTION WALL
-			Wall((midx + 300, midy - 120), (100, 30), world), # RECEPTION WALL
-			Wall((midx + 390, midy + 90), (40, 30), world), # RECEPTION WALL
-
+			Wall((midx - 635, midy - 90), (3,300), world),
+			Wall((midx + 620, midy - 90), (3,300), world),
+			Wall((midx + 640, midy - 310), (1280,3), world),
+			Wall((midx + 440, midy + 175), (400,40), world),
+			Wall((midx - 450, midy + 175), (400,40), world),
+			Wall((midx - 465, midy - 130), (400,30), world),
+			Wall((midx + 270, midy - 130), (225,30), world),
+			Wall((midx - 450, midy + 67), (15,100), world),
+			Wall((midx - 470, midy + 10), (30,40), world),
+			Wall((midx - 240, midy + 120), (15,40), world),
+			Wall((midx - 240, midy - 50), (15,40), world),
+			Wall((midx + 210, midy + 60), (15,70), world),
+			Wall((midx + 123, midy - 170), (15,20), world),
+			Wall((midx + 430, midy - 170), (15,20), world),
+			Wall((midx - 155, midy - 200), (10,40), world),
+			Wall((midx + 440, midy + 350), (400,40), world),
+			Wall((midx - 450, midy + 350), (400,40), world),
 			]
 
 		self.rooms = [
-			Room(0, (midx - 500, midy + 180), (300, 300)),
-			Room(1, (midx - 155, midy - 60), (750, 170)),
-			Room(2, (midx + 320, midy - 222), (440, 150)),
-			Room(3, (midx + 320, midy + 70), (200, 400)),
+			Room(0, (midx - 20, midy + 30), (450, 320)),
+			Room(0, (midx + 430, midy + 30), (450, 320)),
+			Room(0, (midx - 350, midy + 30), (220, 320)),
+			Room(0, (midx - 570, midy + 30), (220, 320)),
+			Room(0, (midx + 360, midy - 290), (500, 320)),
+			Room(0, (midx - 20, midy - 290), (250, 310)),
+			Room(0, (midx - 400, midy - 290), (500, 310)),
+
 		]
 
 		victimAnim = pyganim.PygAnimation([('images/victim.png', 0.1), ('images/victim2.png', 0.1), ('images/victim3.png', 0.1), ('images/victim2.png', 0.1), ('images/victim.png', 0.1),
@@ -69,13 +68,14 @@ class Level1(Level):
 					#screenpos, time(ms), name
 
 					Task((964, 386), 3000, "a"),
-					Task((374, 291), 3000, "b"),
+					Task((200, 200), 3000, "b"),
 					#Task((1215, 342), 2000, "c"),
 					]
 				),
-				'images/collisionMap.png'
+				'images/collisionMap2.png'
 			),
 
 		]
 		self.asignRooms()
 		Level(self.player)
+
