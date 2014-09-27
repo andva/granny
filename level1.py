@@ -83,6 +83,7 @@ class Level1(Level):
 		tvAnim = pyganim.PygAnimation([('images/tv.png', 0.1), ('images/tv3.png', 0.1), ('images/tv4.png', 0.1)])
 		self.destructables = [
 			Destructable((midx + 430, 500), tvAnim, 'images/tv.png'),
+			Destructable((midx + 250, 510), tvAnim, 'images/tv.png'),
 		]
 
 		self.asignRooms()
