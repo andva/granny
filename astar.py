@@ -48,7 +48,7 @@ class AStar(object):
                     node.h = self.heuristic(node, start, end)
                     node.parent = current
                     openset.add(node)
-        return None
+        return []
 
 class AStarNode(object):
     def __init__(self):

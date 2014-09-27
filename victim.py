@@ -12,17 +12,18 @@ class Victim(character.Character):
 	moving = False
 	dead = False
 
-	def __init__(self, screenPosition, image, anim, world):
+	def __init__(self, screenPosition, image, anim, world, taskList):
 		super(Victim, self).__init__()
 		self.startPositionScreen = screenPosition
+		self.screenPosition = screenPosition
 		self.anim = anim
 		self.image = image
 		self.fovAngle = 60
 		self.direction = (1, 0)
 		self.path = []
-		graph, nodes = self.createCollisionMap()
-		paths = AStarGrid(graph)
-		self.setWaypoint((screenPosition[0], screenPosition[1] + 100), nodes, paths)
+		self.taskList = taskList
+		self.graph, self.nodes = self.createCollisionMap()
+		self.paths = AStarGrid(self.graph)
 
 	def createCollisionMap(self):
 		collisionMap = pygame.image.load("images/collisionMap.png").convert()
@@ -35,26 +36,32 @@ class Victim(character.Character):
 			node = nodes[x][y]
 			graph[node] = []
 			for i, j in product([-1, 0, 1], [-1, 0, 1]):
-				if not (0 <= x + i < width): continue
-				if not (0 <= y + j < height): continue
+				if not (0 <= x + i < width - 1): continue
+				if not (0 <= y + j < height - 1): continue
 				pixelVal = collisionMap.get_at((x + i, y + j))[0]
-				if pixelVal < 100: continue
+				if pixelVal < 10: continue
 				graph[nodes[x][y]].append(nodes[x+i][y+j])
 		return graph, nodes
 
 	def convertToPathCoord(self, x, y):
 		return [int(x * constants.PATH_MAP_SCALE), int(y * constants.PATH_MAP_SCALE)]
 
-	def setWaypoint(self, goal, nodes, paths):
-		start = self.convertToPathCoord(self.startPositionScreen[0], self.startPositionScreen[1])
-		goalI = self.convertToPathCoord(self.startPositionScreen[0] + 100, self.startPositionScreen[1])
-		s, e = nodes[start[0]][start[1]], nodes[goalI[0]][goalI[1]]
-		self.path = paths.search(s, e)
-		if self.path is None:
+	def convertPathToScreenCoord(self, x, y):
+		return [float(x) * constants.PATH_MAP_INV_SCALE, float(y) * constants.PATH_MAP_INV_SCALE]
+
+	def setWaypoint(self, goal):
+		start = self.convertToPathCoord(self.screenPosition[0], self.screenPosition[1])
+		goalI = self.convertToPathCoord(goal[0], goal[1])
+
+		self.graph, self.nodes = self.createCollisionMap()
+		self.paths = AStarGrid(self.graph)
+
+		s, e = self.nodes[start[0]][start[1]], self.nodes[goalI[0]][goalI[1]]
+		self.path = self.paths.search(s, e)
+		if len(self.path) == 0:
 			print "No path"
 		else:
-			print "Found path", constants.pathToScreen([self.path[0].x, self.path[0].y])
-		print self.startPositionScreen[0], self.startPositionScreen[1], start, goalI
+			print "Found path", self.convertPathToScreenCoord(self.path[0].x, self.path[0].y), len(self.path)
 
 	def addPhysics(self, world):
 		self.physicsBody = world.CreateDynamicBody(position=constants.screen2World(self.startPositionScreen), angle=15)
@@ -65,20 +72,25 @@ class Victim(character.Character):
 		pass
 
 	def walk(self):
-		if not self.initialized: return;
-		d = ((pygame.time.get_ticks()%5000)/2500)
-		if (d == 1):
-			dir = (0,1)
-			self.moving = False
-		else:
-			dir = (0,-1)
-			self.moving = True
-
-		self.direction = dir
-		movement = [dir[0] * constants.VICTIM_SPEED_REGULAR * 0.8, dir[1] * constants.VICTIM_SPEED_REGULAR * 0.8]
 		self.screenPosition = constants.world2Screen(self.physicsBody.position)
+		if (len(self.path) > 0):
+			targetPos = self.convertPathToScreenCoord(self.path[0].x, self.path[0].y)
+			xd = targetPos[0] - self.screenPosition[0]
+			yd = targetPos[1] - self.screenPosition[1]
+			if (abs(xd) <= 7.1 and abs(yd) <= 7.1):
+				self.path.pop(0)
 
-		self.physicsBody.ApplyLinearImpulse(movement, self.physicsBody.position, True)
+			self.direction = Box2D.b2Vec2([
+				(targetPos[0] - self.screenPosition[0]),
+				-(targetPos[1] - self.screenPosition[1])])
+			self.direction.Normalize()
+			movement = [self.direction[0] * constants.VICTIM_SPEED_REGULAR * 0.8, self.direction[1] * constants.VICTIM_SPEED_REGULAR * 0.8]
+			self.physicsBody.ApplyLinearImpulse(movement, self.physicsBody.position, True)
+		elif self.taskList.done:
+			goal = self.taskList.getRandomTask().screenPos
+			print "Setting new task"
+			self.setWaypoint(goal)
+			print "done"
 
 	def calcFovPolygon(self):
 		sp = self.getScreenPosition()
@@ -101,6 +113,13 @@ class Victim(character.Character):
 			#draw fov
 
 			pygame.draw.polygon(screen, (80,80,100,10), self.calcFovPolygon())
+			ptlst = []
+			if (self.path != None):
+				if (len(self.path) > 1):
+					for i in range(0, len(self.path) - 1):
+						start = self.convertPathToScreenCoord(self.path[i].x, self.path[i].y)
+						end = self.convertPathToScreenCoord(self.path[i + 1].x, self.path[i + 1].y)
+						pygame.draw.line(screen, (255, 0, 0, 0), start, end, 10)
 
 	def seesPlayer(self, player):
 		if not self.initialized: return
