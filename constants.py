@@ -12,9 +12,9 @@ FPS = 60
 TIME_STEP = 1.0 / 60.
 VEL_ITER, POS_ITER = 6, 2
 
-PLAYER_SPEED_REGULAR = 20
+PLAYER_SPEED_REGULAR = 10
 VICTIM_SPEED_REGULAR = 10
-DEBUG = True
+DEBUG = False
 
 def screen2WorldNoFlip(pos):
 	return [p / PPM for p in pos]
