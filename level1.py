@@ -4,6 +4,7 @@ from wall import Wall
 from victim import Victim
 from tasklist import TaskList
 from tasklist import Task
+from destructable import Destructable
 from room import Room
 import constants
 import pyganim
@@ -12,8 +13,11 @@ from pygame.locals import *
 
 class Level1(Level):
 	def __init__(self, world, image, id):
+
+
 		midx = constants.SCREEN_WIDTH / 2.0
 		midy = constants.SCREEN_HEIGHT / 2.0
+
 		self.id = id
 		self.image = image
 		self.img = pygame.image.load(image).convert()
@@ -23,6 +27,7 @@ class Level1(Level):
 										   ('images/grannyf.png', 0.1), ('images/grannyf2.png', 0.1), ('images/grannyf3.png', 0.1), ('images/grannyf2.png', 0.1), ('images/grannyf.png', 0.1), ('images/granny.png', 0.1),
 										   ('images/grannyfr.png', 0.1), ('images/grannyf2r.png', 0.1), ('images/grannyf3r.png', 0.1), ('images/grannyf2r.png', 0.1), ('images/grannyfr.png', 0.1), ('images/granny.png', 0.1)])
 		self.player = Player((midx - 430 ,midy + 200), 'images/granny.png', playerAnim, world)
+		Level.__init__(self, self.player)
 		self.walls = [
 			#screenPos, Size
 			# MAIN WALLS #############################################
@@ -77,5 +82,11 @@ class Level1(Level):
 			),
 
 		]
+		tvAnim = pyganim.PygAnimation([('images/tv.png', 0.1), ('images/tv3.png', 0.1), ('images/tv4.png', 0.1)])
+		self.destructables = [
+			Destructable((midx + 430, 500), tvAnim, 'images/tv.png'),
+		]
+
 		self.asignRooms()
-		Level(self.player)
+
+		#Level(self.player)
