@@ -80,6 +80,7 @@ def render(w, screen):
 		for body in w.bodies:
 			for fixture in body.fixtures:
 				fixture.shape.draw(body, fixture, screen)
+		viewManager.currentView[0].debugDraw(screen)
 
 def worldAfterUpdate(w):
 	w.Step(constants.TIME_STEP, constants.VEL_ITER, constants.POS_ITER)
