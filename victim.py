@@ -10,25 +10,23 @@ class Victim(character.Character):
 	moving = False
 
 	def __init__(self, screenPosition, image, anim, world):
-		self.screenPosition = screenPosition
-		self.physicsBody = world.CreateDynamicBody(position=constants.screen2World(screenPosition), angle=15)
-		self.physicsBody.CreateCircleFixture(radius=1.0, friction=0.0, density=0.3)
+		super(Victim, self).__init__()
+		self.startPositionScreen = screenPosition
 		self.anim = anim
 		self.image = image
 		self.fovAngle = 60
 		self.direction = (1, 0)
-		# verts = [Box2D.b2Vec2(0,0), Box2D.b2Vec2(-5,5), Box2D.b2Vec2(5,5)]
-		# count = 3
-		# shape = Box2D.b2PolygonShape()
-		# self.fovBody = world.CreateStaticBody(
-		# 	position=constants.screen2World(screenPosition),
-		# 	angle=0,
-		# 	shapes = Box2D.b2.polygonShape(vertices=verts, vertexCount=count),
-		# 	)
+
+	def addPhysics(self, world):
+		self.physicsBody = world.CreateDynamicBody(position=constants.screen2World(self.startPositionScreen), angle=15)
+		self.physicsBody.CreateCircleFixture(radius=1.0, friction=0.0, density=0.3)
+		self.initialized = True
+
 	def draw(self):
 		print "hej"
 
 	def walk(self):
+		if not self.initialized: return;
 		d = ((pygame.time.get_ticks()%5000)/2500)
 		if (d == 1):
 			dir = (0,1)
@@ -68,6 +66,7 @@ class Victim(character.Character):
 		pygame.draw.polygon(screen, (80,80,100,255), self.calcFovPolygon())
 
 	def seesPlayer(self, player):
+		if not self.initialized: return
 		playerScreenPos = player.getScreenPosition()
 		victimToPlayer = Box2D.b2Vec2((playerScreenPos[0] - self.screenPosition[0],playerScreenPos[1] - self.screenPosition[1]));
 		victimToPlayer.Normalize()

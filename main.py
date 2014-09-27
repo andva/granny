@@ -96,7 +96,7 @@ def main():
 
 		viewManager.currentView[0].draw(screen)
 		viewManager.currentView[0].movePlayer(move)
-		viewManager.currentView[0].update()
+		viewManager.currentView[0].update(w)
 		render(w, screen)
 
 		worldAfterUpdate(w)
