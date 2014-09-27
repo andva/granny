@@ -40,8 +40,9 @@ class Level1(Level):
 			Wall((midx + 50, midy - 8), (470,3), world), # BOTTOM WALL
 
 			]
-		victimAnim = pyganim.PygAnimation([('images/granny.png', 0.1), ('images/granny2.png', 0.1), ('images/granny3.png', 0.1), ('images/granny2.png', 0.1), ('images/grannyr.png', 0.1), ('images/granny2r.png', 0.1), ('images/granny3r.png', 0.1), ('images/granny2r.png', 0.1)])
+		victimAnim = pyganim.PygAnimation([('images/victim.png', 0.1), ('images/victim2.png', 0.1), ('images/victim3.png', 0.1), ('images/victim2.png', 0.1), ('images/victim.png', 0.1),
+										   ('images/victimr.png', 0.1), ('images/victim2r.png', 0.1), ('images/victim3r.png', 0.1), ('images/victim2r.png', 0.1), ('images/victimr.png', 0.1)])
 		self.victims = [
-			Victim((midx + 100, midy - 30), 'images/granny.png', victimAnim, world)
+			Victim((midx + 100, midy - 30), 'images/victim.png', victimAnim, world)
 		]
 		Level(self.player)
