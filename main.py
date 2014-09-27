@@ -13,7 +13,7 @@ from soundManager import SoundManager
 from musicManager import MusicManager
 import listeners
 import viewManager
-from highscore import HighScore, ScoreEntry
+from highscore import HighScore
 
 def handleInput(highScore):
 	move = Box2D.b2Vec2(0,0)
@@ -84,9 +84,10 @@ def resetForces(w):
 def initPygame():
 	pygame.mixer.pre_init(44100, -16, 1, 512)
 	pygame.init()
-	screen = pygame.display.set_mode((constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
+	screen = pygame.display.set_mode((constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT), pygame.FULLSCREEN)
 	pygame.display.set_caption("")
 	constants.myfont = pygame.font.SysFont("trebuchet ms", 30)
+
 	return screen
 
 def initWorld():
@@ -123,8 +124,15 @@ def worldAfterUpdate(w):
 		if len(viewManager.currentView[0].victims) == 0:
 			for v in w.bodies:
 				w.DestroyBody(v)
+
+
 			viewManager.loadLevel(1, w)
-			viewManager.currentView[0].deadBodies = []
+			if (viewManager.currentLevel[0] == 0):
+				viewManager.currentView[0].deadBodies = []
+			#if (viewManager.currentLevel[0] == 1):
+
+
+
 
 def main():
 	screen = initPygame()

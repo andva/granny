@@ -110,7 +110,7 @@ class Level2(Level):
 			),
 		]
 
-		
+
 
 		self.asignRooms()
 
