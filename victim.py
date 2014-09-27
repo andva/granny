@@ -95,10 +95,10 @@ class Victim(character.Character):
 					self.taskList.startDoingTask()
 
 			self.direction = Box2D.b2Vec2([
-				-(targetPos[0] - self.screenPosition[0]),
+				(targetPos[0] - self.screenPosition[0]),
 				(targetPos[1] - self.screenPosition[1])])
 			self.direction.Normalize()
-			movement = [-self.direction[0] * constants.VICTIM_SPEED_REGULAR * 0.8, -self.direction[1] * constants.VICTIM_SPEED_REGULAR * 0.8]
+			movement = [self.direction[0] * constants.VICTIM_SPEED_REGULAR * 0.8, -self.direction[1] * constants.VICTIM_SPEED_REGULAR * 0.8]
 			self.physicsBody.ApplyLinearImpulse(movement, self.physicsBody.position, True)
 
 		elif self.taskList.done:
@@ -116,8 +116,8 @@ class Victim(character.Character):
 	def calcFovPolygon(self):
 		sp = self.getScreenPosition()
 
-		rv1 = constants.rotateVector([self.direction[0], -self.direction[1]], self.fovAngle / 2.)
-		rv2 = constants.rotateVector([self.direction[0], -self.direction[1]], -self.fovAngle / 2.)
+		rv1 = constants.rotateVector([-self.direction[0], -self.direction[1]], self.fovAngle / 2.)
+		rv2 = constants.rotateVector([-self.direction[0], -self.direction[1]], -self.fovAngle / 2.)
 		return [
 			sp,
 			(sp[0] - rv1[0] * 500., sp[1] - rv1[1] * 500.),

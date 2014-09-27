@@ -22,8 +22,8 @@ class Level:
 	def debugDraw(self, screen):
 		self.player.debugDraw(screen)
 		for r in self.rooms:
-			r.debugDraw(screen)
-
+			# r.debugDraw(screen)
+			pass
 	def draw(self, screen):
 		drawer.drawImage(self.img, screen, (0,0))
 		screenPosition = self.player.getScreenPosition()
