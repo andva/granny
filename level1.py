@@ -44,7 +44,9 @@ class Level1(Level):
 			]
 
 		self.rooms = [
-			Room(0, (midx - 500, midy + 180), (300, 300))
+			Room(0, (midx - 500, midy + 180), (300, 300)),
+			Room(1, (midx - 20, midy - 150), (1120, 350)),
+			
 		]
 
 		victimAnim = pyganim.PygAnimation([('images/victim.png', 0.1), ('images/victim2.png', 0.1), ('images/victim3.png', 0.1), ('images/victim2.png', 0.1), ('images/victim.png', 0.1),
@@ -59,7 +61,7 @@ class Level1(Level):
 					#screenpos, time(ms), name
 					[Task((201, 532), 3000, "a"),
 					Task((207, 175), 3000, "b")]
-				))
+				)),
 		]
 		self.asignRooms()
 		Level(self.player)
