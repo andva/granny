@@ -27,14 +27,15 @@ def handleInput():
 		move += (0, 1)
 	if keys_pressed[K_s]:
 		move += (0, -1)
-	if keys_pressed[K_RETURN]:
-		for v in viewManager.currentView[0].victims:
-			playerX = viewManager.currentView[0].player.getScreenPosition()[0]
-			playerY = viewManager.currentView[0].player.getScreenPosition()[1]
-			victimX = v.getScreenPosition()[0]
-			victimY = v.getScreenPosition()[1]
-			if(math.hypot(playerX - victimX, playerY - victimY) < 50):
-				v.dead = True
+	if viewManager.currentView[0].type == 'level':
+		if keys_pressed[K_RETURN]:
+			for v in viewManager.currentView[0].victims:
+				playerX = viewManager.currentView[0].player.getScreenPosition()[0]
+				playerY = viewManager.currentView[0].player.getScreenPosition()[1]
+				victimX = v.getScreenPosition()[0]
+				victimY = v.getScreenPosition()[1]
+				if(math.hypot(playerX - victimX, playerY - victimY) < 50):
+					v.dead = True
 
 
 
