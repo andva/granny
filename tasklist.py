@@ -22,7 +22,6 @@ class TaskList:
 
 		r = random.randint(0, len(self.tasks) - 2)
 		if (r >= self.currentTaskId): r += 1
-		print "TASKLIST", r
 		self.currentTaskId = r
 		return self.tasks[r]
 

@@ -61,10 +61,6 @@ class Victim(character.Character):
 
 		s, e = self.nodes[start[0]][start[1]], self.nodes[goalI[0]][goalI[1]]
 		self.path = self.paths.search(s, e)
-		if len(self.path) == 0:
-			print "No path"
-		else:
-			print "Found path", self.convertPathToScreenCoord(self.path[0].x, self.path[0].y), len(self.path)
 
 	def addPhysics(self, world):
 		self.physicsBody = world.CreateDynamicBody(position=constants.screen2World(self.startPositionScreen), angle=15)
@@ -104,9 +100,8 @@ class Victim(character.Character):
 		elif self.taskList.done:
 			if True:#not self.seenPlayer:
 				goal = self.taskList.getRandomTask().screenPos
-				print "Setting new task"
 				self.setWaypoint(goal)
-				print "done"
+
 			else:
 				pass
 				#Panic mode

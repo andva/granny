@@ -2,7 +2,7 @@ import drawer
 import pygame, sys
 from pygame.locals import *
 
-class Level:
+class Level(object):
 
 	id = 0
 	image = 0
@@ -14,10 +14,11 @@ class Level:
 		print "hej"
 		self.player = player
 		self.victims = []
-		self.doors = []
+		self.destructables = []
 		self.bodies = []
 		self.walls = []
 		self.rooms = []
+
 
 	def debugDraw(self, screen):
 		self.player.debugDraw(screen)
@@ -33,6 +34,8 @@ class Level:
 		self.player.drawCharacter(screen, screenPosition)
 		for v in self.victims:
 			v.drawCharacter(screen, v.getScreenPosition())
+		for d in self.destructables:
+			d.drawDestructable(screen)
 
 
 	def movePlayer(self, deltaP):

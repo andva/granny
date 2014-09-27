@@ -38,6 +38,16 @@ def handleInput():
 					victimY = v.getScreenPosition()[1]
 					if(math.hypot(playerX - victimX, playerY - victimY) < 50):
 						v.dead = True
+						constants.highScore += 1000
+				for d in viewManager.currentView[0].destructables:
+					if (d.hitDelay()):
+						playerX = viewManager.currentView[0].player.getScreenPosition()[0]
+						playerY = viewManager.currentView[0].player.getScreenPosition()[1]
+						victimX = d.getScreenPosition()[0]
+						victimY = d.getScreenPosition()[1]
+						if(math.hypot(playerX - victimX, playerY - victimY) < 50):
+							constants.highScore += d.hit()
+					pass
 
 
 	for e in pygame.event.get():
@@ -126,7 +136,7 @@ def main():
 		render(w, screen)
 
 		worldAfterUpdate(w)
-		text = "FPS: {0:.2f}   Playtime: {1:.2f}".format(clock.get_fps(), playtime)
+		text = "FPS: {0:.2f}   Playtime: {1:.2f} ".format(clock.get_fps(), playtime) + "Score: " + str(constants.highScore)
 		pygame.display.set_caption(text)
 		pygame.display.update()
 
